@@ -20,13 +20,18 @@ header {
 
 #login {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 15px;
+    margin-left: 60%;
 }
 
-#login img {
-    width: 250px;
+#logo {
+    position: absolute;
+    width: 300px;
     height: auto;
+    margin-left: -35%;
+    margin-top: -15px;
 }
 
 #login h2 {
@@ -49,10 +54,18 @@ header {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    flex: none;
 }
 
 #login button:hover {
     background-color: #0056b3;
+}
+
+#registration {
+    display: flex;
+    flex: 1;
+    color: white;
+    margin-left: 0%;
 }
 
 .container {
