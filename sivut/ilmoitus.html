@@ -8,14 +8,7 @@
 </head>
 <body>
     <header>
-        <img src="/img/logo.png" id="logo">
-        <form id="login">
-            <h2>Kirjaudu</h2>
-            <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
-            <input type="password" id="password" name="password" placeholder="Salasana">
-            <button type="submit" id="submit">Kirjaudu</button>
-            <button type="button" id="registration">Rekisteröidy</button>
-        </form>
+        <img src="/img/logo.png" id="logo" alt="Automarket Logo">
     </header>
     <div class="container">
         <nav>
@@ -25,11 +18,42 @@
                 <li><a href="/sivut/osto.html">Tee ostoilmoitus</a></li>
                 <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/viestit.html">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
             </ul>
         </nav>
         <main>
-            <h2>Esittelyssä olevat ilmoitukset</h2>
-            <p>------</p>
+            <h2>Listaa ajoneuvosi myytäväksi</h2>
+            <p>Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen.</p>
+
+            <form action="/julkaise-auto" method="post" enctype="multipart/form-data">
+                <label for="merkki">Ajoneuvon merkki:</label>
+                <input type="text" id="merkki" name="merkki" placeholder="Esim. Audi" required>
+
+                <label for="malli">Ajoneuvon malli:</label>
+                <input type="text" id="malli" name="malli" placeholder="Esim. RS5" required>
+
+                <label for="polttoaine">Käyttövoima:</label>
+                <select id="polttoaine" name="polttoaine" required>
+                    <option value="bensiini">Bensiini</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="hybridi">Hybridi</option>
+                    <option value="sähkö">Sähkö</option>
+                </select>
+
+                <label for="kilometrit">Kilometrit:</label>
+                <input type="number" id="kilometrit" name="kilometrit" placeholder="Esim. 250000" required>
+
+                <label for="vaihteisto">Vaihteistotyyppi:</label>
+                <select id="vaihteisto" name="vaihteisto" required>
+                    <option value="manuaali">Manuaali</option>
+                    <option value="automaatti">Automaatti</option>
+                </select>
+
+                <label for="kuva">Lisää kuva ajoneuvosta:</label>
+                <input type="file" id="kuva" name="kuva" accept="image/*" required>
+
+                <button type="submit">Lähetä</button>
+            </form>
         </main>
     </div>
     <footer>
