@@ -20,8 +20,8 @@ Näyttötyö on selainkäyttöinen autojen osto- ja myyntipalvelu.
 **Deadline:** 17.12.2024
 
 ## Työnjako
-- **Benjamin Varonen**: Frontend
-- **Jani Kaartinen**: Backend
-- **Christian Karjola**: Frontend
+- **Benjamin Varonen**: Haku ja suodatus, kiinnostumisilmoitukset ja sivun kääntömahdollisuus
+- **Jani Kaartinen**: Ilmoitusten tallentaminen tietokantaan 
+- **Christian Karjola**: Kirjautuminen ja ilmoitusten julkaisumahdollisuus
 
 **Tarkemmat työtehtävät katsotaan tehtävän edetessä**
