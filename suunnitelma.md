@@ -17,6 +17,10 @@ Näyttötyö on selainkäyttöinen autojen osto- ja myyntipalvelu.
 - Lähettää ja katsoa viestejä
 - Kääntää sivun englannin kielelle
 
+## Ylläpitäjät voi
+- Poistaa ilmoituksia
+- Hallinnoida ja tarvittaessa poistaa käyttäjätilejä
+
 ## Tehtävässä käytettävä aika
 **Deadline:** 17.12.2024
 
