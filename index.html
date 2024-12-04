@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles.css" rel="stylesheet">
     <title>Automarket</title>
 </head>
+
 <body>
     <header>
         <img src="/img/logo.png" id="logo">
-        <form id="login">
-            <h2>Kirjaudu</h2>
-            <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
-            <input type="password" id="password" name="password" placeholder="Salasana">
-            <button type="submit" id="submit">Kirjaudu</button>
-            <button type="button" id="registration">Rekisteröidy</button>
-        </form>
+        <div id="loginDiv">
+            <form id="login">
+                <h2>Kirjaudu</h2>
+                <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
+                <input type="password" id="password" name="password" placeholder="Salasana">
+                <button type="submit" id="submit">Kirjaudu</button>
+                <button type="button" id="registration">Rekisteröidy</button>
+            </form>
+        </div>
+        <span hidden id="loggedUsername"></span>
+        <button hidden id="logoutBtn">Kirjaudu ulos</button>
     </header>
     <div class="container">
         <nav>
@@ -35,6 +41,7 @@
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
+
 </html>

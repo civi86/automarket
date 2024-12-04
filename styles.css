@@ -124,6 +124,10 @@ form select:focus {
     outline: none;
 }
 
+#loggedUsername {
+    display: block;
+}
+
 h2 {
     text-align: center;
     color: #ad0000;
