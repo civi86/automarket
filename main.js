@@ -16,7 +16,7 @@ const registrationEvent = (event) => {
         if (password.length < 8) {
             throw new Error('Salasana liian lyhyt')
         }
-        else {window.location = 'julkaisut.html'}
+        window.location = 'julkaisut.html'
 
         registrationRequest({ username, password })
         console.log(username, password)
@@ -38,7 +38,11 @@ const loginEvent = (event) => {
 
             throw new Error('Salasana liian lyhyt')
         }
+        window.location = 'sivut/julkaisut.html'
         loginRequest({ username, password })
+        htmlElements.logoutBtn.style.display = 'block'
+        htmlElements.loginDiv.setAttribute('hidden', '')
+        htmlElements.logOutDiv.removeAttribute('hidden')
     }
     catch (error) {
         console.log(error.message)

@@ -5,8 +5,8 @@ const login = () => {
     loginForm.reset()
     loginDiv.setAttribute('hidden', '')
     logoutBtn.removeAttribute('hidden')
-    loggedUsername.textContent = `Kirjautunut sisään: ${tokenDecode().username}`
-    loggedUsername.removeAttribute('hidden')
+    //loggedUsername.textContent = `Kirjautunut sisään: ${tokenDecode().username}`
+    //loggedUsername.removeAttribute('hidden')
 
     console.log('Kirjauduttu sisään onnistuneesti')
 }

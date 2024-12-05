@@ -19,6 +19,7 @@ const loginForm = document.getElementById('login')
 
 // Div's
 const loginDiv = document.getElementById('loginDiv')
+const logOutDiv = document.getElementById('log-out-div')
 
 // Span
 const loggedUsername = document.getElementById('loggedUsername')
@@ -36,5 +37,6 @@ export {
     regUsername,
     regEmail,
     regPhoneNumber,
-    registrationSubmit
+    registrationSubmit,
+    logOutDiv
 }

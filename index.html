@@ -10,18 +10,19 @@
 
 <body>
     <header>
+        <a href="index.html">
+            <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
         <div id="loginDiv">
-            <a href="index.html">
-                <img src="/img/logo.png" id="logo" alt="Automarket Logo">
-            </a>
+            <form id="login">
+                <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
+                <input type="password" id="password" name="password" placeholder="Salasana">
+                <button type="submit" id="submit">Kirjaudu</button>
+                <button type="button" id="registration">Rekisteröidy</button>
+                <button type="button" id="log-out" style="display: none;">Kirjaudu ulos</button>
+            </form>
+            <button type="submit" id="reg-registration" style="display: none;">Rekisteröidy</button>
         </div>
-        <form id="login">
-            <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
-            <input type="password" id="password" name="password" placeholder="Salasana">
-            <button type="submit" id="submit">Kirjaudu</button>
-            <button type="button" id="registration">Rekisteröidy</button>
-            <button type="button" id="log-out">Kirjaudu ulos</button>
-        </form>
     </header>
     <div class="container">
         <main>
