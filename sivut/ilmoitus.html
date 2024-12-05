@@ -8,15 +8,21 @@
 </head>
 <body>
     <header>
-        <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+        <a href="../index.html">
+            <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
+        <div id="log-out-div">
+            <p id="logged-in-user">Kirjautunut sisään käyttäjänä: xxxx</p>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </div>
     </header>
     <div class="container">
         <nav>
             <h3>Auto-Marketti</h3>
             <ul>
+                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
                 <li><a href="/sivut/osto.html">Tee ostoilmoitus</a></li>
-                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/viestit.html">Viestit</a></li>
                 <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
             </ul>
@@ -25,7 +31,7 @@
             <h2>Listaa ajoneuvosi myytäväksi</h2>
             <p>Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen.</p>
 
-            <form action="/julkaise-auto" method="post" enctype="multipart/form-data">
+            <form id="publish" action="/julkaise-auto" method="post" enctype="multipart/form-data">
                 <label for="merkki">Ajoneuvon merkki:</label>
                 <input type="text" id="merkki" name="merkki" placeholder="Esim. Audi" required>
 
@@ -49,6 +55,12 @@
                     <option value="automaatti">Automaatti</option>
                 </select>
 
+                <label for="hinta">Hinta:</label>
+                <input type="number" id="hinta" name="hinta" required>
+
+                <label for="kuvaus">Kuvaus ajoneuvosta:</label>
+                <input type="input" id="kuvaus" name="kuvaus" required>
+
                 <label for="kuva">Lisää kuva ajoneuvosta:</label>
                 <input type="file" id="kuva" name="kuva" accept="image/*" required>
 
@@ -59,6 +71,6 @@
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
-    <script src="main.js"></script>
+    <script src="/js/sellCar.js"></script>
 </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../styles.css" rel="stylesheet">
+    <title>Automarket</title>
+</head>
+<body>
+    <header>
+        <a href="../index.html">
+            <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
+        <form id="login" style="display: none;">
+            <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
+            <input type="password" id="password" name="password" placeholder="Salasana">
+            <button type="submit" id="submit">Kirjaudu</button>
+            <button type="button" id="registration">Rekisteröidy</button>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </form>
+    </header>
+    <div class="container">
+        <main>
+            <form id="registration-form">
+                <h2>Tervetuloa Auto-Markettiin!</h2>
+                <label for="username">Valitse käyttäjänimesi:</label>
+                <input type="text" id="reg-username" name="username" placeholder="Käyttäjänimi">
+                <label for="password">Valitse salasanasi:</label>
+                <input type="password" id="reg-password" name="password" placeholder="Salasana">
+                <label for="email">Kirjoita sähköpostiosoitteesi yhteydenottoa varten:</label>
+                <input type="email" id="reg-email" name="email" placeholder="Sähköpostiosoite">
+                <label for="number">Kirjoita puhelinnumerosi yhteydenottoa varten:</label>
+                <input type="number" id="reg-number" name="number" placeholder="Puhelinnumero">
+                <button type="submit" id="reg-registration">Rekisteröidy</button>
+            </form>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
+    </footer>
+    <script type="module" src="../main.js"></script>
+</body>
+</html>

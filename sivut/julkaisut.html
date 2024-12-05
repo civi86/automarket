@@ -8,15 +8,21 @@
 </head>
 <body>
     <header>
-        <img src="/img/logo.png" id="logo" alt="Auto-Marketti Logo">
+        <a href="../index.html">
+            <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
+        <div id="log-out-div">
+            <span id="loggedUsername"></span>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </div>
     </header>
     <div class="container">
         <nav>
             <h3>Auto-Marketti</h3>
             <ul>
+                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
                 <li><a href="/sivut/osto.html">Tee ostoilmoitus</a></li>
-                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/viestit.html">Viestit</a></li>
                 <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
             </ul>
@@ -60,6 +66,6 @@
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
-    <script src="main.js"></script>
+    <script src="/js/posts.js"></script>
 </body>
 </html>

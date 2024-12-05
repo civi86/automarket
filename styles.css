@@ -12,27 +12,26 @@ body {
 }
 
 header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #ad0000;
     color: white;
-    padding: 40px;
-    text-align: center;
+    padding: 20px;
     font-family: 'Times New Roman', Times, serif;
     position: relative;
 }
 
 #logo {
-    position: absolute;
+    position: static;
     width: 300px;
     height: auto;
-    top: -10px;
-    left: 20px;
 }
 
 .container {
     display: flex;
     flex: 1;
-    margin: 0 auto;
-    max-width: 1200px;
+    margin: 1 auto;
 }
 
 nav {
@@ -65,11 +64,11 @@ nav ul li a:hover {
 
 main {
     flex: 1;
-    padding: 20px;
+    padding: 40px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    margin: 60px;
 }
 
 footer {
@@ -79,23 +78,84 @@ footer {
     border-top: 1px solid #ccc;
 }
 
-form {
+#login {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 25px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 14px;
 }
 
-form label {
+#login input,
+#login button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+#registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: middle;
+    max-width: 600px;
+    gap: 25px;
+    margin: auto;
+    padding: 120px;
+    font-size: 14px;
+}
+
+#registration-form input {
+    padding: 15px;
+}
+
+#registration-form h3 {
+    margin: auto;
+}
+
+#registration-form button {
+    padding: 15px;
+    max-width: 250px;
+    margin: auto;
+}
+
+#log-out-div {
+    display: flex;
+    gap: 50px;
+    margin-right: 5%;
+}
+
+#log-out {
+    background-color: #ad0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+#log-out:hover {
+    background-color: #9b0000;
+}
+
+#logged-in-user {
+    background: rgb(245, 245, 245);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+#publish label {
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
 }
 
-form input, 
-form select, 
-form button {
+#publish input, 
+#publish select, 
+#publish button {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -103,23 +163,23 @@ form button {
     width: 100%;
 }
 
-form input[type="file"] {
-    padding: 5px;
+#publish input[type="file"] {
+    padding: 15px;
 }
 
-form button {
+#login button {
     background-color: #ad0000;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-form button:hover {
+#login button:hover {
     background-color: #9b0000;
 }
 
-form input:focus,
-form select:focus {
+#login input:focus,
+#login select:focus {
     border-color: #ad0000;
     outline: none;
 }

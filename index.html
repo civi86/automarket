@@ -10,32 +10,54 @@
 
 <body>
     <header>
-        <img src="/img/logo.png" id="logo">
         <div id="loginDiv">
-            <form id="login">
-                <h2>Kirjaudu</h2>
-                <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
-                <input type="password" id="password" name="password" placeholder="Salasana">
-                <button type="submit" id="submit">Kirjaudu</button>
-                <button type="button" id="registration">Rekisteröidy</button>
-            </form>
+            <a href="index.html">
+                <img src="/img/logo.png" id="logo" alt="Automarket Logo">
+            </a>
         </div>
-        <span hidden id="loggedUsername"></span>
-        <button hidden id="logoutBtn">Kirjaudu ulos</button>
+        <form id="login">
+            <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
+            <input type="password" id="password" name="password" placeholder="Salasana">
+            <button type="submit" id="submit">Kirjaudu</button>
+            <button type="button" id="registration">Rekisteröidy</button>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </form>
     </header>
     <div class="container">
-        <nav>
-            <h3>Auto-Marketti</h3>
-            <ul>
-                <li><a href="sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
-                <li><a href="sivut/osto.html">Tee ostoilmoitus</a></li>
-                <li><a href="sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
-                <li><a href="sivut/viestit.html">Viestit</a></li>
-            </ul>
-        </nav>
         <main>
             <h2>Esittelyssä olevat ilmoitukset</h2>
-            <p>------</p>
+            <div class="ilmoitus">
+                <div class="ilmoitus-kuvake">
+                    <img src="/img/auto1.png" alt="Toyota Corolla 2022">
+                    <div class="ilmoitus-tiedot">
+                        <h3>Toyota Corolla 2022</h3>
+                        <p><strong>Käyttövoima:</strong> Bensiini</p>
+                        <p><strong>Vaihteisto:</strong> Automaatti</p>
+                        <p><strong>Kilometrit:</strong> 75,000 km</p>
+                        <button>Lisätiedot</button>
+                    </div>
+                </div>
+                <div class="ilmoitus-kuvake">
+                    <img src="/img/auto2.png" alt="Audi A1 2016">
+                    <div class="ilmoitus-tiedot">
+                        <h3>Audi A1 2016</h3>
+                        <p><strong>Käyttövoima:</strong> Diesel</p>
+                        <p><strong>Vaihteisto:</strong> Manuaali</p>
+                        <p><strong>Kilometrit:</strong> 120,000 km</p>
+                        <button>Lisätiedot</button>
+                    </div>
+                </div>
+                <div class="ilmoitus-kuvake">
+                    <img src="/img/auto3.png" alt="Ford Mustang 2017">
+                    <div class="ilmoitus-tiedot">
+                        <h3>Ford Mustang 2017</h3>
+                        <p><strong>Käyttövoima:</strong> Bensiini</p>
+                        <p><strong>Vaihteisto:</strong> Automaatti</p>
+                        <p><strong>Kilometrit:</strong> 550,000 km</p>
+                        <button>Lisätiedot</button>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <footer>
