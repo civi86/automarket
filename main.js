@@ -40,9 +40,6 @@ const loginEvent = (event) => {
         }
         window.location = 'sivut/julkaisut.html'
         loginRequest({ username, password })
-        htmlElements.logoutBtn.style.display = 'block'
-        htmlElements.loginDiv.setAttribute('hidden', '')
-        htmlElements.logOutDiv.removeAttribute('hidden')
     }
     catch (error) {
         console.log(error.message)
