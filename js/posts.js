@@ -13,8 +13,23 @@ async function fetchItems() {
         const itemsList = document.getElementById('items-list');
         
         items.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.name} - ${item.price}`;
+            const listItem = document.createElement('div');
+            const img = document.createElement('img');
+            img.src = item.photoURLs;
+            img.onerror = () => {
+                img.src = '/img/404.png';
+            };
+            listItem.id = `item-${item.id}`;
+            
+            const textContent = document.createElement('span');
+            textContent.textContent = `${item.mark} ${item.model} - ${item.price} €`;
+
+            listItem.classList.add('listed-item');
+            img.classList.add('listed-item-img');
+            textContent.classList.add('listed-item-desc')
+
+            listItem.appendChild(img);
+            listItem.appendChild(textContent);
             itemsList.appendChild(listItem);
         });
 
@@ -23,3 +38,4 @@ async function fetchItems() {
         alert('Failed to fetch items. Please try again later.');
     }
 };
+fetchItems();
