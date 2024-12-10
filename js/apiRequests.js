@@ -1,5 +1,3 @@
-import { login } from './login.js'
-
 const backEndUrl = 'https://automarketbackend.onrender.com/api'
 
 const registrationRequest = async (data) => {
@@ -13,14 +11,15 @@ const registrationRequest = async (data) => {
 
     })
     const response = await fetch(request)
-    if (response.ok) {
+    if (!response.ok) {
         const result = await response.json()
-        console.log(result)
+        throw new Error(result.error)
     }
     else {
-        console.log(response)
-    }
+        const result = await response.json()
 
+        return result
+    }
 }
 
 const loginRequest = async (data) => {
@@ -33,18 +32,15 @@ const loginRequest = async (data) => {
         body: JSON.stringify(data),
     })
     const response = await fetch(request)
-    if (response.ok) {
+    if (!response.ok) {
         const result = await response.json()
-
-        localStorage.setItem('token', result.token)
-        login()
+        throw new Error(result.error)
     }
     else {
-        console.log(response)
+        const result = await response.json()
+
+        return result
     }
 }
-
-
-
 
 export { registrationRequest, loginRequest }

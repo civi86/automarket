@@ -31,7 +31,7 @@
             <h2>Listaa ajoneuvosi myytäväksi</h2>
             <p>Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen.</p>
 
-            <form id="publish" action="/julkaise-auto" method="post" enctype="multipart/form-data">
+            <form id="publish" >
                 <label for="merkki">Ajoneuvon merkki:</label>
                 <input type="text" id="merkki" name="merkki" placeholder="Esim. Audi" required>
 
@@ -64,7 +64,7 @@
                 <label for="kuva">Lisää kuva ajoneuvosta:</label>
                 <input type="file" id="kuva" name="kuva" accept="image/*" required>
 
-                <button type="submit">Lähetä</button>
+                <button type="button" onclick="newItemEvent(event)">Lähetä</button>
             </form>
         </main>
     </div>

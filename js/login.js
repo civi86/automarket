@@ -4,7 +4,7 @@ import { loginForm, loginDiv, loggedUsername, logOutDiv } from './htmlElements.j
 const login = () => {
     loginForm.reset()
     loginDiv.setAttribute('hidden', '')
-    logOutDiv.removeAttribute('hidden')
+    //logOutDiv.removeAttribute('hidden')
     loggedUsername.textContent = `Kirjautunut sisään: ${tokenDecode().username}`
 
     console.log('Kirjauduttu sisään onnistuneesti')

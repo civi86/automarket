@@ -3,6 +3,7 @@ const registrationBtn = document.getElementById('registration')
 const loginBtn = document.getElementById('submit')
 const logoutBtn = document.getElementById('log-out')
 const registrationSubmit = document.getElementById('reg-registration')
+const newItemSubmitBtn = document.getElementById('newItemSubmit')
 
 // Fields
 const password = document.getElementById('password')
@@ -16,6 +17,7 @@ const regPhoneNumber = document.getElementById('reg-number')
 
 // Forms
 const loginForm = document.getElementById('login')
+const publishForm = document.getElementById('publish')
 
 // Div's
 const loginDiv = document.getElementById('loginDiv')
@@ -38,5 +40,7 @@ export {
     regEmail,
     regPhoneNumber,
     registrationSubmit,
-    logOutDiv
+    logOutDiv,
+    newItemSubmitBtn,
+    publishForm,
 }

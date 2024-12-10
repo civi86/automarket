@@ -1,6 +1,6 @@
 import { loginRequest, registrationRequest } from './js/apiRequests.js'
 import * as htmlElements from './js/htmlElements.js'
-import { logout } from './js/login.js'
+import { logout, login } from './js/login.js'
 
 const registrationEvent = (event) => {
     try {
@@ -16,9 +16,11 @@ const registrationEvent = (event) => {
         if (password.length < 8) {
             throw new Error('Salasana liian lyhyt')
         }
-        window.location = 'julkaisut.html'
-
+        
         registrationRequest({ username, password })
+            .then(() => {
+                window.location = 'julkaisut.html'
+            })
         console.log(username, password)
     }
     catch (error) {
@@ -38,11 +40,20 @@ const loginEvent = (event) => {
 
             throw new Error('Salasana liian lyhyt')
         }
-        window.location = 'sivut/julkaisut.html'
         loginRequest({ username, password })
+            .then(result => {
+                localStorage.setItem('token', result.token)
+                console.log('Token saved to localstorage')
+                
+                window.location = 'sivut/julkaisut.html'
+                login()
+            })
+                
+            .catch(error => console.log(error))
+        
     }
     catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 

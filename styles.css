@@ -160,7 +160,7 @@ footer {
     padding: 15px;
 }
 
-#login button {
+#login button, #reg-registration {
     background-color: #ad0000;
     color: white;
     border: none;
