@@ -1,3 +1,7 @@
+import { notification } from './notification.js'
+
+const postItemBtn = document.getElementById('postItem')
+
 const backEndUrl = 'https://automarketbackend.onrender.com/api'
 
 const newItemRequest = async (data) => {
@@ -30,6 +34,7 @@ const newItemRequest = async (data) => {
 }
 
 const newItemEvent = (event) => {
+    try {
     event.preventDefault()
 
     const keys = { 'merkki': 'mark', 'malli': 'model', 'polttoaine': 'fuelType', 'kilometrit': 'mileage', 'vaihteisto': 'gearBoxType', 'hinta': 'price', 'kuvaus': 'description', 'kuva': 'photos' }
@@ -37,6 +42,9 @@ const newItemEvent = (event) => {
     const formDataRaw = new FormData(form)
     const data = new FormData()
     for (const [key, rawData] of formDataRaw) {
+        if (rawData === '' && key != 'kuvaus') {
+            throw new Error(`${key} kenttä on tyhjä`)
+        }
         data.append(keys[key], rawData)
     }
     newItemRequest(data)
@@ -45,6 +53,12 @@ const newItemEvent = (event) => {
             setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
             console.log(response)
         })
+    }
+    catch(error) {
+        notification(error)
+    }
     //return data
 
 }
+
+postItemBtn.addEventListener('click', newItemEvent)
