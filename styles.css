@@ -224,3 +224,11 @@ p {
     padding: 25px;
 }
 
+.notification {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    margin: 5px;
+    z-index: 9999;
+}

@@ -17,7 +17,7 @@
             <form id="login">
                 <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
                 <input type="password" id="password" name="password" placeholder="Salasana">
-                <button type="submit" id="submit">Kirjaudu</button>
+                <button type="submit" id="loginSubmit">Kirjaudu</button>
                 <button type="button" id="registration">Rekisteröidy</button>
                 <button type="button" id="log-out" style="display: none;">Kirjaudu ulos</button>
             </form>
@@ -33,6 +33,8 @@
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
+    <script type="module" src="./js/events/login.js"></script>
+    <script type="module" src="./js/notification.js"></script>
     <script type="module" src="/js/posts.js"></script>
     <script type="module" src="main.js"></script>
 </body>

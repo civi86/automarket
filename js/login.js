@@ -1,11 +1,12 @@
 import { tokenDecode } from './functions.js'
 import { loginForm, loginDiv, loggedUsername, logOutDiv } from './htmlElements.js'
+import { notification } from './notification.js'
 
 const login = () => {
-    loginForm.reset()
-    loginDiv.setAttribute('hidden', '')
+    //loginForm.reset()
+    //loginDiv.setAttribute('hidden', '')
     //logOutDiv.removeAttribute('hidden')
-    loggedUsername.textContent = `Kirjautunut sisään: ${tokenDecode().username}`
+    //loggedUsername.textContent = `Kirjautunut sisään: ${tokenDecode().username}`
 
     console.log('Kirjauduttu sisään onnistuneesti')
 }
