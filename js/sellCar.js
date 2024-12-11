@@ -1,26 +1,31 @@
 const backEndUrl = 'https://automarketbackend.onrender.com/api'
 
 const newItemRequest = async (data) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-        const request = new Request(backEndUrl + '/item', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
+    try {
+        const token = localStorage.getItem('token')
+        if (token) {
+            const request = new Request(backEndUrl + '/item', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
 
-            body: data,
-        })
-        const response = await fetch(request)
-        if (!response.ok) {
-            const result = await response.json()
-            throw new Error(result.error)
-        }
-        else {
-            const result = await response.json()
+                body: data,
+            })
+            const response = await fetch(request)
+            if (!response.ok) {
+                const result = await response.json()
+                throw new Error(result.error)
+            }
+            else {
+                const result = await response.json()
 
-            return result
+                return result
+            }
         }
+    }
+    catch (error) {
+        console.log(error)
     }
 }
 
@@ -35,7 +40,11 @@ const newItemEvent = (event) => {
         data.append(keys[key], rawData)
     }
     newItemRequest(data)
-        .then((response) => {console.log(response)})
+        .then((response) => {
+            notification({ name: 'Info', message: 'Ilmoitus rekisteröity onnistuneesti' }, true)
+            setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
+            console.log(response)
+        })
     //return data
 
 }
