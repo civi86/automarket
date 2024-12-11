@@ -1,6 +1,5 @@
 import { notification } from '../notification.js'
 const logoutBtn = document.getElementById('log-out')
-console.log(logoutBtn)
 
 const logoutEvent = () => {
   console.log('Logout')
