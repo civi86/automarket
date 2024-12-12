@@ -1,22 +1,25 @@
 const notificationDiv = document.createElement('div')
 const body = document.getElementsByTagName('body')[0]
 
-const notification = (error, doWeRedirectLater = false) => {
+const notification = (error, doWeRedirectLater = false, stayOn = false) => {
   console.log(error)
 
   if (error.name === 'Error') {
-    notificationDiv.style.backgroundColor = 'red'
+    notificationDiv.style.backgroundColor = 'rgba(255,0,0,0.85)'
   }
   else if (error.name === 'Info') {
-    notificationDiv.style.backgroundColor = 'green'
+    notificationDiv.style.backgroundColor = 'rgba(0,255,0,0.85)'
   }
   else {
-    notificationDiv.style.backgroundColor = 'brown' //hörhör
+    notificationDiv.style.backgroundColor = 'rgba(139,69,19,0.85)' //hörhör
   }
   notificationDiv.classList.add('notification')
   notificationDiv.textContent = error.message
   body.prepend(notificationDiv)
-  if (!doWeRedirectLater) {
+
+  if (!(!doWeRedirectLater || !stayOn)) {
+    console.log('Timeout')
+    // Remove notification after 5 seconds
     setTimeout(() => { body.removeChild(notificationDiv) }, 5000)
   }
 }

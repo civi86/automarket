@@ -8,4 +8,10 @@ const tokenDecode = () => {
     return null
 }
 
-export { tokenDecode }
+const loadingIndicator = () => {
+    const div = document.createElement('div')
+    div.classList.add('loading')
+    return div
+}
+
+export { tokenDecode, loadingIndicator }
