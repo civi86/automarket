@@ -22,7 +22,7 @@ const loginEvent = (event) => {
         localStorage.setItem('token', result.token)
         console.log('Token saved to localstorage')
         notification({ name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, true)
-        setTimeout(() => { window.location = '../sivut/julkaisut.html' }, 5000)
+        setTimeout(() => { window.location = '/sivut/julkaisut.html' }, 5000)
       })
       .catch(error => console.log(error))
 

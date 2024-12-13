@@ -27,7 +27,7 @@ async function fetchItems() {
             const img = document.createElement('img');
             img.src = item.thumbnailURLs[0];
             img.onerror = () => {
-                img.src = 'img/404.png';
+                img.src = '/../img/404.png';
             };
             listItem.id = `item-${item.id}`;
 
