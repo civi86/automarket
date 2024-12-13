@@ -1,7 +1,7 @@
-import * as htmlElements from './js/htmlElements.js'
+const registrationBtn = document.getElementById('registration')
 
 const registrationReDirect = () => {
     window.location = 'sivut/rekisterointi.html'
 }
 
-htmlElements.registrationBtn.addEventListener('click', registrationReDirect)
+registrationBtn.addEventListener('click', registrationReDirect)
