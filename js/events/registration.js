@@ -9,7 +9,6 @@ const regPhoneNumber = document.getElementById('reg-number')
 
 const registrationEvent = (event) => {
   try {
-    console.log('hep')
     event.preventDefault()
     const username = regUsername.value
     const password = regPassword.value
@@ -28,11 +27,10 @@ const registrationEvent = (event) => {
         notification({ name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, true)
         setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
       })
-    console.log(username, password)
   }
   catch (error) {
-    notification(error)
     console.log(error)
+    notification(error)
   }
 }
 
