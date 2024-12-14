@@ -94,4 +94,25 @@ const deleteUserRequest = async (userId) => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest }
+const deleteItemRequest = async (itemId) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + `/item/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+const itemsListRequest = async () => {
+    const request = new Request(backEndUrl + '/items', {
+        method: 'GET',
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest }
