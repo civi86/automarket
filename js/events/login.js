@@ -1,4 +1,5 @@
 import { loginRequest } from '../apiRequests.js'
+import { tokenDecode } from '../functions.js'
 import { notification } from "../notification.js"
 
 const loginSubmitBtn = document.getElementById('loginSubmit')
@@ -22,7 +23,12 @@ const loginEvent = (event) => {
         localStorage.setItem('token', result.token)
         console.log('Token saved to localstorage')
         notification({ name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, true)
-        setTimeout(() => { window.location = '/sivut/julkaisut.html' }, 5000)
+        if (tokenDecode().role === 'admin') {
+          setTimeout(() => { window.location = '/sivut/admin.html' }, 5000)
+        }
+        else {
+          setTimeout(() => { window.location = '/sivut/julkaisut.html' }, 5000)
+        }
       })
       .catch(error => console.log(error))
 
