@@ -177,7 +177,7 @@ footer {
     outline: none;
 }
 
-#loggedUsername {
+#log-out-div span {
     padding: 10px;
 }
 
