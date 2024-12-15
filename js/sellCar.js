@@ -35,26 +35,26 @@ const newItemRequest = async (data) => {
 
 const newItemEvent = (event) => {
     try {
-    event.preventDefault()
+        event.preventDefault()
 
-    const keys = { 'merkki': 'mark', 'malli': 'model', 'polttoaine': 'fuelType', 'kilometrit': 'mileage', 'vaihteisto': 'gearBoxType', 'hinta': 'price', 'kuvaus': 'description', 'kuva': 'photos' }
-    const form = event.target.parentElement
-    const formDataRaw = new FormData(form)
-    const data = new FormData()
-    for (const [key, rawData] of formDataRaw) {
-        if (rawData === '' && key != 'kuvaus') {
-            throw new Error(`${key} kenttä on tyhjä`)
+        const keys = { 'merkki': 'mark', 'malli': 'model', 'polttoaine': 'fuelType', 'kilometrit': 'mileage', 'vaihteisto': 'gearBoxType', 'hinta': 'price', 'kuvaus': 'description', 'kuva': 'photos' }
+        const form = event.target.parentElement
+        const formDataRaw = new FormData(form)
+        const data = new FormData()
+        for (const [key, rawData] of formDataRaw) {
+            if (rawData === '' && key != 'kuvaus') {
+                throw new Error(`${key} kenttä on tyhjä`)
+            }
+            data.append(keys[key], rawData)
         }
-        data.append(keys[key], rawData)
+        newItemRequest(data)
+            .then((response) => {
+                console.log(response)
+                notification({ error: { name: 'Info', message: 'Ilmoitus rekisteröity onnistuneesti' }, doWeRedirectLater: true })
+                setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
+            })
     }
-    newItemRequest(data)
-        .then((response) => {
-            notification({ name: 'Info', message: 'Ilmoitus rekisteröity onnistuneesti' }, true)
-            setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
-            console.log(response)
-        })
-    }
-    catch(error) {
+    catch (error) {
         notification(error)
     }
     //return data

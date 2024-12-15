@@ -27,11 +27,11 @@ const fetchRequest = async (request) => {
         console.log(error)
         if (error.message === 'Unauthorized') {
             document.getElementsByTagName('body')[0].innerHTML = ''
-            notification({ name: 'Error', message: 'Ei oikeuksia!', doWeRedirectLater: true })
+            notification({ error: { name: 'Error', message: 'Ei oikeuksia!' }, doWeRedirectLater: true })
             setTimeout(() => { window.location = '../index.html' }, 5000)
         }
         else if (error.message === 'Invalid username or password') {
-            notification({ name: 'Error', message: 'Käyttäjänimi tai salasana väärin', doWeRedirectLater: false })
+            notification({ error: { name: 'Error', message: 'Käyttäjänimi tai salasana väärin' }, doWeRedirectLater: false })
         }
     }
     return

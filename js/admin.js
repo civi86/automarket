@@ -21,7 +21,7 @@ const body = document.getElementsByTagName('body')[0]
 // First check if there is token and user role is admin in token
 if (!localStorage.getItem('token') || tokenDecode().role !== 'admin') {
   body.innerHTML = ''
-  notification({ name: 'Error', message: 'Ei oikeuksia!', doWeRedirectLater: true })
+  notification({ error: { name: 'Error', message: 'Ei oikeuksia!' }, doWeRedirectLater: true })
   setTimeout(() => { window.location = '../index.html' }, 5000)
 }
 
@@ -215,7 +215,7 @@ const showAnnouncementsListEvent = async (event) => {
         delete: 'Delete'
       },
       deleteItemEvent
-  )
+    )
     innerContainer.appendChild(table)
     innerContainer.removeChild(indicatorDiv)
   }

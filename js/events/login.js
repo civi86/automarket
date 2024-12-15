@@ -22,7 +22,7 @@ const loginEvent = (event) => {
       .then(result => {
         localStorage.setItem('token', result.token)
         console.log('Token saved to localstorage')
-        notification({ name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, true)
+        notification({ error: { name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, doWeRedirectLater: true })
         if (tokenDecode().role === 'admin') {
           setTimeout(() => { window.location = '/sivut/admin.html' }, 5000)
         }

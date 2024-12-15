@@ -24,7 +24,7 @@ const registrationEvent = (event) => {
 
     registrationRequest({ username, password })
       .then(() => {
-        notification({ name: 'Info', message: 'Rekisteröidytty onnistuneesti' }, true)
+        notification({ error: { name: 'Info', message: 'Rekisteröidytty onnistuneesti' }, doWeRedirectLater: true })
         setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
       })
   }

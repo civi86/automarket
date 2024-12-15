@@ -45,7 +45,7 @@ async function fetchItems() {
 
     } catch (error) {
         console.error('Error fetching items:', error);
-        notification({ name: 'Error', message: 'Failed to fetch items. Please try again later.', stayOn: true });
+        notification({ error: { name: 'Error', message: 'Failed to fetch items. Please try again later.' }, stayOn: true });
     }
 };
 fetchItems();

@@ -1,7 +1,7 @@
 const notificationDiv = document.createElement('div')
 const body = document.getElementsByTagName('body')[0]
 
-const notification = (error, doWeRedirectLater = false, stayOn = false) => {
+const notification = ({error, doWeRedirectLater = false, stayOn = false}) => {
   console.log(error)
 
   if (error.name === 'Error') {
@@ -17,7 +17,7 @@ const notification = (error, doWeRedirectLater = false, stayOn = false) => {
   notificationDiv.textContent = error.message
   body.prepend(notificationDiv)
 
-  if (doWeRedirectLater == false || stayOn === false) {
+  if (!(doWeRedirectLater || stayOn)) {
     // Remove notification after 5 seconds
     setTimeout(() => { body.removeChild(notificationDiv) }, 5000)
   }
