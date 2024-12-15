@@ -14,9 +14,9 @@ const loginEvent = (event) => {
     if (username === '') {
       throw new Error('Käyttäjänimi puuttuu')
     }
-    if (password.length < 8) {
+    if (password === '') {
 
-      throw new Error('Salasana liian lyhyt')
+      throw new Error('Salasana puuttuu')
     }
     loginRequest({ username, password })
       .then(result => {
@@ -34,7 +34,7 @@ const loginEvent = (event) => {
 
   }
   catch (error) {
-    notification(error)
+    notification({error})
   }
 }
 

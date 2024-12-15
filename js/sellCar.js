@@ -55,9 +55,8 @@ const newItemEvent = (event) => {
             })
     }
     catch (error) {
-        notification(error)
+        notification({ error })
     }
-    //return data
 
 }
 

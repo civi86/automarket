@@ -30,7 +30,7 @@ const registrationEvent = (event) => {
   }
   catch (error) {
     console.log(error)
-    notification(error)
+    notification({error})
   }
 }
 
