@@ -7,6 +7,7 @@ async function fetchItems() {
 
         // Add loading indicator
         const indicatorDiv = loadingIndicator()
+        indicatorDiv.style.top = '60%'
         itemsList.appendChild(indicatorDiv)
 
         const response = await fetch('https://automarketbackend.onrender.com/api/items/');
