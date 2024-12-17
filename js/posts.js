@@ -1,5 +1,6 @@
 import { loadingIndicator } from "./functions.js";
 import { notification } from "./notification.js";
+import { openSendMessageEvent } from './events/message.js';
 
 async function fetchItems() {
     try {
@@ -41,6 +42,12 @@ async function fetchItems() {
 
             listItem.appendChild(img);
             listItem.appendChild(textContent);
+            if (window.location.pathname === '/sivut/julkaisut.html') {
+                const sendMessageBtn = document.createElement('button')
+                sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
+                sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id) })
+                listItem.appendChild(sendMessageBtn)
+            }
             itemsList.appendChild(listItem);
         });
 

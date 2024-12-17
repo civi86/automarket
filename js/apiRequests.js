@@ -115,4 +115,18 @@ const itemsListRequest = async () => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest }
+const sendMessageRequest = async (data) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + '/message', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest, sendMessageRequest }

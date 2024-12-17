@@ -1,5 +1,5 @@
 import { usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest } from './apiRequests.js'
-import { tokenDecode, loadingIndicator } from './functions.js'
+import { tokenDecode, loadingIndicator, confirmationBox } from './functions.js'
 import { notification } from './notification.js'
 
 const table = document.createElement('table')
@@ -23,35 +23,6 @@ if (!localStorage.getItem('token') || tokenDecode().role !== 'admin') {
   body.innerHTML = ''
   notification({ error: { name: 'Error', message: 'Ei oikeuksia!' }, doWeRedirectLater: true })
   setTimeout(() => { window.location = '../index.html' }, 5000)
-}
-
-const confirmationBox = (message) => {
-  const containerDiv = document.createElement('div')
-  containerDiv.id = 'confirm-container'
-
-  const confirmationDiv = document.createElement('div')
-  const confirmationText = document.createElement('p')
-  const yesBtn = document.createElement('button')
-
-  yesBtn.textContent = 'Kyllä'
-  const noBtn = document.createElement('button')
-  noBtn.textContent = 'Ei'
-  confirmationText.textContent = message
-  confirmationDiv.id = 'confirm-box'
-  confirmationDiv.appendChild(confirmationText)
-  confirmationDiv.appendChild(yesBtn)
-  confirmationDiv.appendChild(noBtn)
-  containerDiv.appendChild(confirmationDiv)
-  const confirmationPromise = new Promise((resolve, reject) => {
-    yesBtn.addEventListener('click', (event) => {
-      resolve()
-    })
-    noBtn.addEventListener('click', (event) => {
-      reject()
-    })
-  })
-
-  return { containerDiv, confirmationPromise }
 }
 
 const deleteUserEvent = async (event, userId) => {
