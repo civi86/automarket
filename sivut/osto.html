@@ -25,7 +25,30 @@
         </nav>
         <main>
             <h2>Tee ostoilmoitus</h2>
-            <p>------</p>
+            <form id="car-purchase-form">
+                <label for="car-make">Merkki:</label>
+                <input type="text" id="car-make" name="car-make" placeholder="Esim. Toyota" required>
+    
+                <label for="car-model">Malli:</label>
+                <input type="text" id="car-model" name="car-model" placeholder="Esim. Corolla" required>
+
+                <label for="car-model">Vaihteisto:</label>
+                <input type="text" id="car-gear" name="car-gear" placeholder="Esim. Manuaali/Automaatti" required>
+    
+                <label for="car-year">Vuosimalli:</label>
+                <input type="number" id="car-year" name="car-year" placeholder="Esim. 2020" required>
+    
+                <label for="car-price">Budjetti (€):</label>
+                <input type="number" id="car-price" name="car-price" placeholder="Esim. 15000" required>
+    
+                <label for="car-description">Kuvaus:</label>
+                <textarea id="car-description" name="car-description" rows="5" placeholder="Lisätietoja autosta"></textarea>
+    
+                <label for="car-image">Kuva autosta:</label>
+                <input type="file" id="car-image" name="car-image" accept="image/*">
+    
+                <button type="submit">Lähetä ilmoitus</button>
+            </form>
         </main>
     </div>
     <footer>
