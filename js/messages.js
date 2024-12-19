@@ -1,30 +1,18 @@
-import { confirmationBox } from './functions.js'
-import { sendMessageRequest } from './apiRequests.js'
+import { confirmationBox, generateContainer } from './functions.js'
+import { sendMessageRequest, messagesRequest } from './apiRequests.js'
+import { notification } from './notification.js'
 
-const receivedMessagesBtn = document.getElementById('received-msg-btn')
-const sendedMessagesBtn = document.getElementById('sended-msg-btn')
-const sendMessagesBtn = document.getElementById('send-msg-btn')
+const showMessagesBtn = document.getElementById('message-btn')
+const main = document.getElementsByTagName('main')[0]
 
-const generateMessageBox = (title, recipientUserId, announcementId) => {
-  const messageContainer = document.createElement('div')
+const generateMessageBox = (title, recipientUserId, announcementId, announcementType) => {
+  const container = generateContainer(title)
+  const messageContainer = container.container
   messageContainer.classList.add('msg-container')
+  const headerDiv = container.headerDiv
+  const bodyDiv = container.bodyDiv
+  bodyDiv.classList.add('msg-body')
 
-  const headerDiv = document.createElement('div')
-  headerDiv.classList.add('msg-header')
-  const h3 = document.createElement('h3')
-  h3.classList.add('center')
-  h3.textContent = title
-  headerDiv.appendChild(h3);
-
-  const closeBtn = document.createElement('button')
-  closeBtn.textContent = 'X'
-  closeBtn.id = 'close-container-btn'
-
-  headerDiv.appendChild(closeBtn)
-
-  const bodyDiv = document.createElement('div')
-  bodyDiv.classList.add('center')
-  //bodyDiv.id = 'msg-body'
   const form = document.createElement('form')
 
   const messageArea = document.createElement('textarea')
@@ -40,7 +28,11 @@ const generateMessageBox = (title, recipientUserId, announcementId) => {
   box.confirmationPromise
     .then(() => {
       const message = messageArea.value
-      sendMessageRequest({ recipientUserId, message, announcementId})
+      sendMessageRequest({ recipientUserId, message, announcementId, announcementType })
+      .then(() => {
+        main.removeChild(messageContainer)
+      })
+      
     })
     .catch(() => messageContainer.removeChild(confirmationDiv))
 
@@ -52,8 +44,6 @@ const generateMessageBox = (title, recipientUserId, announcementId) => {
 
   })
 
-
-
   form.appendChild(messageLabel)
   form.appendChild(messageArea)
   form.appendChild(messageButton)
@@ -61,9 +51,89 @@ const generateMessageBox = (title, recipientUserId, announcementId) => {
   bodyDiv.appendChild(form)
   messageContainer.appendChild(headerDiv)
   messageContainer.appendChild(bodyDiv)
-  closeBtn.addEventListener('click', () => { messageContainer.parentElement.removeChild(messageContainer) })
 
   return messageContainer
+}
+
+
+const generateMessagesList = (data, messageType) => {
+  const div = document.createElement('div')
+  div.classList.add('messages-list')
+  data.forEach(topic => {
+    console.log(topic)
+    if (topic._id.messageType !== messageType) {
+      return
+    }
+    const ul = document.createElement('ul')
+    const announcement = document.createElement('li')
+    const date = document.createElement('li')
+    date.textContent = topic._id.date
+    announcement.textContent = `Ilmoitus: ${topic._id.announcement.mark} ${topic._id.announcement.model} ${topic._id.announcement.mileage} km ${topic._id.announcement.price} €`
+    announcement.classList.add('msg-announcement')
+    ul.appendChild(announcement)
+    ul.appendChild(date)
+    topic.messages.forEach(message => {
+      const li = document.createElement('li')
+      const sender = document.createElement('span')
+      sender.classList.add('msg-sender')
+      sender.textContent = `${topic._id.recipientUser}: `
+      const msg = document.createElement('span')
+      msg.textContent = message
+      li.appendChild(sender)
+      li.appendChild(msg)
+
+      ul.appendChild(li)
+    })
+    if (topic._id.messageType !== 'sent') {
+      const button = document.createElement('button')
+      button.addEventListener('click', () => {
+        const messageBox = generateMessageBox('Vastaa viestiin', topic._id.recipientUserId, topic._id.announcement, 'sell')
+        main.appendChild(messageBox)
+      })
+      button.textContent = 'Vastaa'
+      ul.appendChild(button)
+    }
+
+    div.appendChild(ul)
+  })
+
+  return div
+}
+
+if (showMessagesBtn) {
+  showMessagesBtn.addEventListener('click', async () => {
+    messagesRequest()
+      .then(result => {
+        if (result !== undefined && result.status !== 204) {
+          const messagesContainer = generateContainer('Viestit')
+          const receivedMsgDiv = document.createElement('div')
+          const receivedHeader = document.createElement('h3')
+          receivedHeader.textContent = 'Saapuneet'
+          receivedMsgDiv.appendChild(receivedHeader)
+          const sendedMsgDiv = document.createElement('div')
+          const sendedHeader = document.createElement('h3')
+          sendedHeader.textContent = 'Lähetetyt'
+          sendedMsgDiv.appendChild(sendedHeader)
+
+          const innerMessageContainer = document.createElement('div')
+          innerMessageContainer.appendChild(receivedMsgDiv)
+          innerMessageContainer.appendChild(sendedMsgDiv)
+          messagesContainer.bodyDiv.appendChild(innerMessageContainer)
+
+          const receivedList = generateMessagesList(result, 'received')
+          receivedMsgDiv.appendChild(receivedList)
+          const sendedList = generateMessagesList(result, 'sent')
+          sendedMsgDiv.appendChild(sendedList)
+
+          const main = document.getElementsByTagName('main')[0]
+          main.prepend(messagesContainer.container)
+        }
+        else {
+          notification({ error: { name: 'Info', message: 'Ei viestejä' }, doWeRedirectLater: false })
+        }
+      })
+      .catch(error => console.log("error :", error))
+  })
 }
 
 export { generateMessageBox }

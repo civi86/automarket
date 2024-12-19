@@ -23,9 +23,11 @@ const registrationEvent = (event) => {
     }
 
     registrationRequest({ username, password })
-      .then(() => {
-        notification({ error: { name: 'Info', message: 'Rekisteröidytty onnistuneesti' }, doWeRedirectLater: true })
-        setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
+      .then((result) => {
+        if (result) {
+          notification({ error: { name: 'Info', message: 'Rekisteröidytty onnistuneesti' }, doWeRedirectLater: true })
+          setTimeout(() => { window.location = '../index.html' }, 5000)
+        }
       })
   }
   catch (error) {

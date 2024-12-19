@@ -1,4 +1,4 @@
-import { loadingIndicator } from "./functions.js";
+import { loadingIndicator, tokenDecode } from "./functions.js";
 import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 
@@ -24,6 +24,14 @@ async function fetchItems() {
 
         console.log('Fetched Items:', items);
 
+        if (items.length === 0) {
+            itemsList.textContent = 'Ei yhtään ilmoitusta'
+            itemsList.style.fontWeight = 'bold'
+            itemsList.style.textAlign = 'center'
+            itemsList.style.display = 'block'
+        }
+        const decodedToken = tokenDecode()
+
         items.forEach(item => {
             const listItem = document.createElement('div');
             const img = document.createElement('img');
@@ -42,11 +50,13 @@ async function fetchItems() {
 
             listItem.appendChild(img);
             listItem.appendChild(textContent);
-            if (window.location.pathname === '/sivut/julkaisut.html') {
-                const sendMessageBtn = document.createElement('button')
-                sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
-                sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id) })
-                listItem.appendChild(sendMessageBtn)
+            if (window.location.pathname === '/sivut/julkaisut.html') {   
+                if (decodedToken && item.user !== decodedToken.id) {
+                    const sendMessageBtn = document.createElement('button')
+                    sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
+                    sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id, 'sell') })
+                    listItem.appendChild(sendMessageBtn)
+                }
             }
             itemsList.appendChild(listItem);
         });

@@ -33,8 +33,11 @@ const fetchRequest = async (request) => {
         else if (error.message === 'Invalid username or password') {
             notification({ error: { name: 'Error', message: 'Käyttäjänimi tai salasana väärin' }, doWeRedirectLater: false })
         }
+        else if (error.message === 'expected `username` to be unique') {
+            notification({ error: { name: 'Error', message: 'Käyttäjänimi on jo käytössä' }, doWeRedirectLater: false })
+            return false
+        }
     }
-    return
 }
 
 const registrationRequest = async (data) => {
@@ -49,6 +52,7 @@ const registrationRequest = async (data) => {
     })
 
     const result = await fetchRequest(request)
+
     return result
 }
 
@@ -129,4 +133,16 @@ const sendMessageRequest = async (data) => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest, sendMessageRequest }
+const messagesRequest = async () => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + '/message', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest }
