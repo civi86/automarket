@@ -37,12 +37,37 @@ const newItemEvent = (event) => {
     try {
         event.preventDefault()
 
-        const keys = { 'merkki': 'mark', 'malli': 'model', 'polttoaine': 'fuelType', 'kilometrit': 'mileage', 'vaihteisto': 'gearBoxType', 'hinta': 'price', 'kuvaus': 'description', 'kuva': 'photos' }
+        const keyList = [{
+            'merkki': 'mark',
+            'malli': 'model',
+            'polttoaine': 'fuelType',
+            'kilometrit': 'mileage',
+            'vaihteisto': 'gearBoxType',
+            'hinta': 'price',
+            'kuvaus': 'description',
+            'kuva': 'photos'
+        },
+        {
+            'car-make': 'mark',
+            'car-model': 'model',
+            'car-gear': 'gearBoxType',
+            'car-year': 'year',
+            'car-price': 'price',
+            'car-description': 'description',
+            'car-image': 'photos'
+        }]
+
+        
+
         const form = event.target.parentElement
         const formDataRaw = new FormData(form)
         const data = new FormData()
+        const keys = form.id === 'car-purchase-form'
+            ? keyList[1]
+            : keyList[0]
+
         for (const [key, rawData] of formDataRaw) {
-            if (rawData === '' && key != 'kuvaus') {
+            if (rawData === '' && key !== 'kuvaus') {
                 throw new Error(`${key} kenttä on tyhjä`)
             }
             data.append(keys[key], rawData)

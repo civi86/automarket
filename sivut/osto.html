@@ -25,7 +25,7 @@
         </nav>
         <main>
             <h2>Tee ostoilmoitus</h2>
-            <form id="car-purchase-form">
+            <form id="car-purchase-form"><!--ToDo: Need testing and implementing in backend-->
                 <label for="car-make">Merkki:</label>
                 <input type="text" id="car-make" name="car-make" placeholder="Esim. Toyota" required>
     
@@ -47,13 +47,14 @@
                 <label for="car-image">Kuva autosta:</label>
                 <input type="file" id="car-image" name="car-image" accept="image/*">
     
-                <button type="submit">Lähetä ilmoitus</button>
+                <button type="submit" id="postItem">Lähetä ilmoitus</button>
             </form>
         </main>
     </div>
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
+    <script type="module" src="../js/sellCar.js"></script>
     <script src="../main.js"></script>
 </body>
 </html>

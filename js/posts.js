@@ -11,7 +11,7 @@ async function fetchItems() {
         indicatorDiv.style.top = '60%'
         itemsList.appendChild(indicatorDiv)
 
-        const response = await fetch('https://automarketbackend.onrender.com/api/items/');
+        const response = await fetch('http://localhost:3001/api/items/');
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);

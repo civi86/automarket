@@ -1,6 +1,6 @@
 import { tokenDecode } from './functions.js'
 import { notification } from './notification.js'
-const backEndUrl = 'https://automarketbackend.onrender.com/api'
+const backEndUrl = 'http://localhost:3001/api'
 
 const fetchRequest = async (request) => {
     try {
