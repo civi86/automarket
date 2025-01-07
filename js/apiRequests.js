@@ -98,6 +98,22 @@ const deleteUserRequest = async (userId) => {
     return result
 }
 
+const newItemRequest = async (data) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        const request = new Request(backEndUrl + '/item', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+
+            body: data,
+        })
+        const result = await fetch(request)
+        return result
+    }
+}
+
 const deleteItemRequest = async (itemId) => {
     const token = localStorage.getItem('token')
     const request = new Request(backEndUrl + `/item/${itemId}`, {
@@ -145,4 +161,4 @@ const messagesRequest = async () => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest }
+export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, newItemRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest }

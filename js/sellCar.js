@@ -1,37 +1,9 @@
 import { notification } from './notification.js'
+import { newItemRequest } from './apiRequests.js'
 
 const postItemBtn = document.getElementById('postItem')
 
 const backEndUrl = 'https://automarketbackend.onrender.com/api'
-
-const newItemRequest = async (data) => {
-    try {
-        const token = localStorage.getItem('token')
-        if (token) {
-            const request = new Request(backEndUrl + '/item', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-
-                body: data,
-            })
-            const response = await fetch(request)
-            if (!response.ok) {
-                const result = await response.json()
-                throw new Error(result.error)
-            }
-            else {
-                const result = await response.json()
-
-                return result
-            }
-        }
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
 
 const newItemEvent = (event) => {
     try {
