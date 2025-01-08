@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/styles.css" rel="stylesheet">
+    <title>Automarket</title>
+</head>
+<body>
+    <header>
+        <a href="/index.html">
+            <img src="../img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
+        <div id="log-out-div">
+            <span id="logged-username"></span>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </div>
+    </header>
+    <div class="container">
+        <nav>
+            <h3>Auto-Marketti</h3>
+            <ul>
+                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
+                <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
+                <li><a href="/sivut/haku.html">Autohaku</a></li>
+                <li><a href="/sivut/viestit.html">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Etsi autoa haluamasi kriteereillä</h2>
+            <p>Syötä ajoneuvon tiedot alla olevaan lomakkeeseen.</p>
+
+            <form id="publish">
+                <label for="haku-merkki">Ajoneuvon merkki:</label>
+                <select id="haku-merkki" name="merkki">
+                    <option value="">Valitse merkki</option>
+                </select>
+            
+                <label for="haku-malli">Ajoneuvon malli:</label>
+                <select id="haku-malli" name="malli">
+                    <option value="">Valitse malli</option>
+                </select>
+            
+                <label for="haku-polttoaine">Käyttövoima:</label>
+                <select id="haku-polttoaine" name="polttoaine">
+                    <option value="">Valitse</option>
+                    <option value="bensiini">Bensiini</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="hybridi">Hybridi</option>
+                    <option value="sähkö">Sähkö</option>
+                </select>
+
+                <label for="haku-vaihteisto">Vaihteistotyyppi:</label>
+                <select id="haku-vaihteisto" name="vaihteisto">
+                    <option value="">Valitse</option>
+                    <option value="manuaali">Manuaali</option>
+                    <option value="automaatti">Automaatti</option>
+                </select>
+            
+                <label for="haku-max-kilometrit">Maksimikilometrit:</label>
+                <input type="number" id="haku-max-kilometrit" name="max-kilometrit">
+            
+                <label for="haku-max-price">Maksimihinta:</label>
+                <input type="number" id="haku-max-price" name="max-hinta">
+            
+                <button type="button" id="haku-postItem">Lähetä</button>
+            </form>            
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
+    </footer>
+    <script type="module" src="../js/loggedUser.js"></script>
+    <script type="module" src="../js/events/autologout.js"></script>
+    <script type="module" src="/js/searchCar.js"></script>
+</body>
+</html>

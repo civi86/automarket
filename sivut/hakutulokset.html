@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/styles.css" rel="stylesheet">
+    <title>Automarket</title>
+</head>
+<body>
+    <header>
+        <a href="/index.html">
+            <img src="../img/logo.png" id="logo" alt="Automarket Logo">
+        </a>
+        <div id="log-out-div">
+            <span id="logged-username"></span>
+            <button type="button" id="log-out">Kirjaudu ulos</button>
+        </div>
+    </header>
+    <div class="container">
+        <nav>
+            <h3>Auto-Marketti</h3>
+            <ul>
+                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
+                <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
+                <li><a href="/sivut/haku.html">Autohaku</a></li>
+                <li><a href="/sivut/viestit.html">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
+            </ul>
+        </nav>
+        <main>
+            <h2>Esittelyssä olevat ilmoitukset</h2>
+            <div class="ilmoitus" id="items-list">
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
+    </footer>
+    <script type="module" src="../js/loggedUser.js"></script>
+    <script type="module" src="../js/events/autologout.js"></script>
+    <script type="module" src="../js/events/logout.js"></script>
+    <script type="module" src="../js/notification.js"></script>
+    <script type="module" src="/js/posts.js"></script>
+</body>
+</html>
