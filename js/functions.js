@@ -1,3 +1,5 @@
+import { sendMessageRequest } from './apiRequests.js'
+
 const tokenDecode = () => {
     const tokenFromLocalStorage = localStorage.getItem('token')
     if (tokenFromLocalStorage !== null) {
@@ -67,4 +69,54 @@ const confirmationBox = (message) => {
     return { containerDiv, confirmationPromise }
 }
 
-export { tokenDecode, loadingIndicator, confirmationBox, generateContainer }
+const generateMessageBox = ({title, recipientUserId, announcementId, topicId = null, main}) => {
+    const container = generateContainer(title)
+    const messageContainer = container.container
+    messageContainer.classList.add('msg-container')
+    const headerDiv = container.headerDiv
+    const bodyDiv = container.bodyDiv
+    bodyDiv.classList.add('msg-body')
+  
+    const form = document.createElement('form')
+  
+    const messageArea = document.createElement('textarea')
+    messageArea.setAttribute('name', 'message')
+    messageArea.id = 'message-textarea'
+  
+    const messageLabel = document.createElement('Label')
+    messageLabel.textContent = 'Viesti'
+    messageLabel.setAttribute('for', 'message-textarea')
+  
+    const box = confirmationBox('Lähetetäänkö viesti?')
+    const confirmationDiv = box.containerDiv
+    box.confirmationPromise
+      .then(() => {
+        const message = messageArea.value
+        sendMessageRequest({ recipientUserId, message, announcementId, topicId })
+          .then(() => {
+            main.removeChild(messageContainer)
+            
+          })
+      })
+      .catch(() => messageContainer.removeChild(confirmationDiv))
+  
+    const messageButton = document.createElement('button')
+    messageButton.textContent = 'Lähetä'
+    messageButton.addEventListener('click', (event) => {
+      event.preventDefault()
+      messageContainer.prepend(confirmationDiv)
+  
+    })
+  
+    form.appendChild(messageLabel)
+    form.appendChild(messageArea)
+    form.appendChild(messageButton)
+  
+    bodyDiv.appendChild(form)
+    messageContainer.appendChild(headerDiv)
+    messageContainer.appendChild(bodyDiv)
+  
+    return messageContainer
+  }
+
+export { tokenDecode, loadingIndicator, confirmationBox, generateContainer, generateMessageBox }

@@ -281,6 +281,15 @@ p {
     float: right;
 }
 
+.topics-list ul {
+    list-style: none;
+}
+.topics-list button {
+    border-radius: 0px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .msg-container form {
     display: grid;
 }
@@ -302,14 +311,24 @@ p {
     padding: 10px 20px;
     width: fit-content;
 }
-
+.msg-table {
+    border-collapse: collapse;
+}
 .msg-table td {
-    border: 1px solid black;
+    padding: 0px;
+    vertical-align: top;
+    border-bottom: 1px solid black;
 }
 
-.msg-sender {
+.msg-table td:nth-child(1) {
     font-weight: bold;
-    padding-left: 5px;
+    word-break: break-word;
+    inline-size: 10ch;
+}
+
+.msg-table td:nth-child(2) {
+    word-break: break-word;
+    inline-size: 20ch;
 }
 
 .msg-announcement {

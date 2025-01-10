@@ -1,9 +1,8 @@
-import { generateMessageBox } from '../messages.js'
+import { generateMessageBox } from '../functions.js'
 
-const main = document.getElementsByTagName('main')[0]
-
-const openSendMessageEvent = (recipientUserId, announcementId, announcementType) => {
-  const div = generateMessageBox('Lähetä viesti myyjälle', recipientUserId, announcementId, announcementType)
+const openSendMessageEvent = (recipientUserId, announcementId ) => {
+  const main = document.getElementsByTagName('main')[0]
+  const div = generateMessageBox({title:'Lähetä viesti myyjälle', recipientUserId, announcementId, main})
   main.prepend(div)
 }
 
