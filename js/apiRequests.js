@@ -149,9 +149,9 @@ const sendMessageRequest = async (data) => {
     return result
 }
 
-const messagesRequest = async () => {
+const messagesRequest = async (data) => {
     const token = localStorage.getItem('token')
-    const request = new Request(backEndUrl + '/message', {
+    const request = new Request(backEndUrl + `/message/topics/${data.id}/${data.index}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -161,4 +161,16 @@ const messagesRequest = async () => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, newItemRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest }
+const topicsRequest = async (data) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + `/message/topics/${data.index}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, newItemRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest, topicsRequest }

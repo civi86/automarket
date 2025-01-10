@@ -54,7 +54,7 @@ async function fetchItems() {
                 if (decodedToken && item.user !== decodedToken.id) {
                     const sendMessageBtn = document.createElement('button')
                     sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
-                    sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id, 'sell') })
+                    sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id) })
                     listItem.appendChild(sendMessageBtn)
                 }
             }
