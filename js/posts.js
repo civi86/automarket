@@ -12,13 +12,19 @@ async function fetchItems() {
         itemsList.appendChild(indicatorDiv)
 
         const response = await fetch('https://automarketbackend.onrender.com/api/items/');
-
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
         else {
             // Remove loading indicator if got response
             itemsList.removeChild(indicatorDiv)
+        }
+        if (response.status === 204) {
+            itemsList.textContent = 'Ei yhtään ilmoitusta'
+            itemsList.style.fontWeight = 'bold'
+            itemsList.style.textAlign = 'center'
+            itemsList.style.display = 'block'
+            return
         }
         const items = await response.json();
 
@@ -29,6 +35,7 @@ async function fetchItems() {
             itemsList.style.fontWeight = 'bold'
             itemsList.style.textAlign = 'center'
             itemsList.style.display = 'block'
+            return
         }
         const decodedToken = tokenDecode()
 
@@ -53,7 +60,11 @@ async function fetchItems() {
             if (window.location.pathname === '/sivut/julkaisut.html') {   
                 if (decodedToken && item.user !== decodedToken.id) {
                     const sendMessageBtn = document.createElement('button')
-                    sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
+                    if (item.announcementType === 'sell')
+                        sendMessageBtn.textContent = 'Lähetä viesti myyjälle'
+                    if (item.announcementType === 'buy') {
+                        sendMessageBtn.textContent = 'Lähetä viesti ilmoituksen jättäjälle'
+                    }
                     sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id) })
                     listItem.appendChild(sendMessageBtn)
                 }

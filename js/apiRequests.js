@@ -32,11 +32,13 @@ const fetchRequest = async (request) => {
         }
         else if (error.message === 'Invalid username or password') {
             notification({ error: { name: 'Error', message: 'Käyttäjänimi tai salasana väärin' }, doWeRedirectLater: false })
+            return false
         }
         else if (error.message === 'expected `username` to be unique') {
             notification({ error: { name: 'Error', message: 'Käyttäjänimi on jo käytössä' }, doWeRedirectLater: false })
             return false
         }
+        return error
     }
 }
 
@@ -99,6 +101,7 @@ const deleteUserRequest = async (userId) => {
 }
 
 const newItemRequest = async (data) => {
+    console.log(data)
     const token = localStorage.getItem('token')
     if (token) {
         const request = new Request(backEndUrl + '/item', {
