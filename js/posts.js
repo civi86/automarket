@@ -2,6 +2,8 @@ import { loadingIndicator, tokenDecode } from "./functions.js";
 import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 
+const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
+
 async function fetchItems() {
     try {
         const itemsList = document.getElementById('items-list');
@@ -11,7 +13,7 @@ async function fetchItems() {
         indicatorDiv.style.top = '60%'
         itemsList.appendChild(indicatorDiv)
 
-        const response = await fetch('https://automarketbackend.onrender.com/api/items/');
+        const response = await fetch(backEndUrl);
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
@@ -60,6 +62,7 @@ async function fetchItems() {
             }
             itemsList.appendChild(listItem);
         });
+        return items;
 
     } catch (error) {
         console.error('Error fetching items:', error);

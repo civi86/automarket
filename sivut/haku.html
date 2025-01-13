@@ -28,47 +28,51 @@
                 <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
             </ul>
         </nav>
-        <main>
-            <h2 data-lang-key="search-title">Etsi autoa haluamasi kriteereillä</h2>
-            <p data-lang-key="search-desc">Syötä ajoneuvon tiedot alla olevaan lomakkeeseen.</p>
+        <main id="main">
+            <div id="car-search">
+                <h2 data-lang-key="search-title">Etsi autoa haluamasi kriteereillä</h2>
+                <p data-lang-key="search-desc">Syötä ajoneuvon tiedot alla olevaan lomakkeeseen.</p>
 
-            <form id="publish">
-                <label for="haku-merkki" data-lang-key="car-brand-label">Ajoneuvon merkki:</label>
-                <select id="haku-merkki" name="merkki" data-lang-key="car-brand-placeholder">
-                </select>
+                <form id="publish">
+                    <label for="haku-merkki" data-lang-key="car-brand-label">Ajoneuvon merkki:</label>
+                    <select id="haku-merkki" name="merkki" data-lang-key="car-brand-placeholder">
+                    </select>
             
-                <label for="haku-malli" data-lang-key="car-model-label">Ajoneuvon malli:</label>
-                <select id="haku-malli" name="malli" data-lang-key="car-model-placeholder">
-                </select>
+                    <label for="haku-malli" data-lang-key="car-model-label">Ajoneuvon malli:</label>
+                    <select id="haku-malli" name="malli" data-lang-key="car-model-placeholder">
+                    </select>
             
-                <label for="haku-polttoaine" data-lang-key="fuel-label">Käyttövoima:</label>
-                <select id="haku-polttoaine" name="polttoaine">
-                    <option value="bensiini" data-lang-key="fuel-petrol">Bensiini</option>
-                    <option value="diesel" data-lang-key="fuel-diesel">Diesel</option>
-                    <option value="hybridi" data-lang-key="fuel-hybrid">Hybridi</option>
-                    <option value="sähkö" data-lang-key="fuel-electric">Sähkö</option>
-                </select>
+                    <label for="haku-polttoaine" data-lang-key="fuel-label">Käyttövoima:</label>
+                    <select id="haku-polttoaine" name="polttoaine">
+                        <option value="bensiini" data-lang-key="fuel-petrol">Bensiini</option>
+                        <option value="diesel" data-lang-key="fuel-diesel">Diesel</option>
+                        <option value="hybridi" data-lang-key="fuel-hybrid">Hybridi</option>
+                        <option value="sähkö" data-lang-key="fuel-electric">Sähkö</option>
+                    </select>
 
-                <label for="haku-vaihteisto" data-lang-key="gearbox-label">Vaihteistotyyppi:</label>
-                <select id="haku-vaihteisto" name="vaihteisto">
-                    <option value="manuaali" data-lang-key="gearbox-manual">Manuaali</option>
-                    <option value="automaatti" data-lang-key="gearbox-automatic">Automaatti</option>
-                </select>
+                    <label for="haku-vaihteisto" data-lang-key="gearbox-label">Vaihteistotyyppi:</label>
+                    <select id="haku-vaihteisto" name="vaihteisto">
+                        <option value="manuaali" data-lang-key="gearbox-manual">Manuaali</option>
+                        <option value="automaatti" data-lang-key="gearbox-automatic">Automaatti</option>
+                    </select>
             
-                <label for="haku-max-kilometrit" data-lang-key="max-km-label">Maksimikilometrit:</label>
-                <input type="number" id="haku-max-kilometrit" name="max-kilometrit" data-lang-key="max-km-placeholder">
+                    <label for="haku-max-kilometrit" data-lang-key="max-km-label">Maksimikilometrit:</label>
+                    <input type="number" id="haku-max-kilometrit" name="max-kilometrit" data-lang-key="max-km-placeholder">
             
-                <label for="haku-max-price" data-lang-key="max-price-label">Maksimihinta:</label>
-                <input type="number" id="haku-max-price" name="max-hinta" data-lang-key="max-price-placeholder">
+                    <label for="haku-max-price" data-lang-key="max-price-label">Maksimihinta:</label>
+                    <input type="number" id="haku-max-price" name="max-hinta" data-lang-key="max-price-placeholder">
             
-                <button type="button" id="haku-postItem" data-lang-key="submit-button">Lähetä</button>
-            </form>            
+                    <button type="button" id="haku-postItem" data-lang-key="submit-button">Lähetä</button>
+                </form>  
+            </div> 
+            <div id="search-container">
+                <h2 data-lang-key="title2">Kriteereihin sopivat hakutulokset</h2>
+                <div class="ilmoitus" id="items-list">
+                </div>         
         </main>
-        <div class="ilmoitus" id="items-list">
-        </div>
     </div>
     <footer>
-        <p data-lang-key="footer">&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
+        <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
     <script type="module" src="../js/loggedUser.js"></script>
     <script type="module" src="../js/events/autologout.js"></script>

@@ -38,7 +38,8 @@ const translations = {
         "hinta": "Price",
         "desc": "Description",
         "img": "Add a picture",
-        "kilometres": "Kilometres"
+        "kilometres": "Kilometres",
+        "title2": "Results that fit the search criteria"
     },
     fi: {
         "title": "Automarket",
@@ -79,7 +80,8 @@ const translations = {
         "hinta": "Hinta",
         "desc": "Kuvaus ajoneuvosta",
         "img": "Lisää kuva ajoneuvosta",
-        "kilometres": "Kilometreit"
+        "kilometres": "Kilometrit",
+        "title2": "Kriteereihin sopivat hakutulokset"
     }
 };
 
