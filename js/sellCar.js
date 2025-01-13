@@ -3,8 +3,6 @@ import { newItemRequest } from './apiRequests.js'
 
 const postItemBtn = document.getElementById('postItem')
 
-const backEndUrl = 'https://automarketbackend.onrender.com/api'
-
 const newItemEvent = (event) => {
     try {
         event.preventDefault()
@@ -29,8 +27,6 @@ const newItemEvent = (event) => {
             'car-image': 'photos'
         }]
 
-        
-
         const form = event.target.parentElement
         const formDataRaw = new FormData(form)
         const data = new FormData()
@@ -38,16 +34,30 @@ const newItemEvent = (event) => {
             ? keyList[1]
             : keyList[0]
 
+        const announcementType = form.id === 'car-purchase-form'
+            ? 'buy'
+            : 'sell'
+
         for (const [key, rawData] of formDataRaw) {
-            if (rawData === '' && key !== 'kuvaus') {
-                throw new Error(`${key} kenttä on tyhjä`)
+            if (rawData === '') {
+                if (key === 'kuvaus' || key === 'car-description') {
+                    continue
+                }
+                else {
+                    throw new Error(`${key} kenttä on tyhjä`)
+                }
             }
             data.append(keys[key], rawData)
         }
+        data.append('announcementType', announcementType)
         newItemRequest(data)
             .then((response) => {
-                console.log(response)
-                notification({ error: { name: 'Info', message: 'Ilmoitus rekisteröity onnistuneesti' }, doWeRedirectLater: true })
+                if (response.ok) {
+                    notification({ error: { name: 'Info', message: 'Ilmoitus rekisteröity onnistuneesti' }, doWeRedirectLater: true })
+                }
+                else {
+                    throw new Error(response)
+                }
                 setTimeout(() => { window.location = 'julkaisut.html' }, 5000)
             })
     }
