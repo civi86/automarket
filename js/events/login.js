@@ -15,7 +15,7 @@ const loginEvent = (event) => {
     indicatorDiv.style.width = '20px'
     indicatorDiv.style.height = '20px'
     loginSubmitBtn.parentElement.prepend(indicatorDiv)
-    
+
     const username = usernameElement.value
     const password = passwordElement.value
     if (username === '') {
@@ -27,22 +27,25 @@ const loginEvent = (event) => {
     }
     loginRequest({ username, password })
       .then(result => {
-        localStorage.setItem('token', result.token)
-        console.log('Token saved to localstorage')
+        if (result) {
+          localStorage.setItem('token', result.token)
+          console.log('Token saved to localstorage')
+          
+          notification({ error: { name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, doWeRedirectLater: true })
+          if (tokenDecode().role === 'admin') {
+            setTimeout(() => { window.location = '/sivut/admin.html' }, 5000)
+          }
+          else {
+            setTimeout(() => { window.location = '/sivut/julkaisut.html' }, 5000)
+          }
+        }
         loginSubmitBtn.parentElement.removeChild(indicatorDiv)
-        notification({ error: { name: 'Info', message: 'Kirjauduttu sisään onnistuneesti' }, doWeRedirectLater: true })
-        if (tokenDecode().role === 'admin') {
-          setTimeout(() => { window.location = '/sivut/admin.html' }, 5000)
-        }
-        else {
-          setTimeout(() => { window.location = '/sivut/julkaisut.html' }, 5000)
-        }
       })
       .catch(error => console.log(error))
 
   }
   catch (error) {
-    notification({error})
+    notification({ error })
   }
 }
 
