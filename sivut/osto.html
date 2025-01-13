@@ -10,17 +10,18 @@
     <header>
         <a href="/index.html">
             <img src="../img/logo.png" id="logo" alt="Automarket Logo">
+            <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
         </a>
     </header>
     <div class="container">
         <nav>
             <h3>Auto-Marketti</h3>
             <ul>
-                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
-                <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
-                <li><a href="/sivut/haku.html">Autohaku</a></li>
-                <li><a href="/sivut/viestit.html">Viestit</a></li>
-                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
+                <li><a href="/sivut/julkaisut.html" data-lang-key="findcar">Löydä itsellesi uusi auto</a></li>
+                <li><a href="/sivut/ilmoitus.html" data-lang-key="listcar">Listaa autosi myytäväksi</a></li>
+                <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
+                <li><a href="/sivut/viestit.html" data-lang-key="messages">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
             </ul>
         </nav>
         <main>
@@ -56,5 +57,6 @@
     </footer>
     <script type="module" src="../js/sellCar.js"></script>
     <script src="../main.js"></script>
+    <script type="module" src="../js/translation.js"></script>
 </body>
 </html>

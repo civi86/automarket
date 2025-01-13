@@ -15,17 +15,18 @@
         </a>
         <div id="loginDiv">
             <form id="login">
+                <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
                 <input type="text" id="username" name="username" placeholder="Käyttäjänimi">
                 <input type="password" id="password" name="password" placeholder="Salasana">
-                <button type="submit" id="loginSubmit">Kirjaudu</button>
-                <button type="button" id="registration">Rekisteröidy</button>
-                <button type="button" id="log-out" style="display: none;">Kirjaudu ulos</button>
+                <button type="submit" id="loginSubmit" data-lang-key="login">Kirjaudu</button>
+                <button type="button" id="registration" data-lang-key="register">Rekisteröidy</button>
+                <button type="button" id="log-out" data-lang-key="logout" style="display: none;">Kirjaudu ulos</button>
             </form>
         </div>
     </header>
     <div class="container">
         <main>
-            <h2>Esittelyssä olevat ilmoitukset</h2>
+            <h2 data-lang-key="title">Esittelyssä olevat ilmoitukset</h2>
             <div class="ilmoitus" id="items-list">
             </div>
         </main>
@@ -37,6 +38,7 @@
     <script type="module" src="./js/notification.js"></script>
     <script type="module" src="./js/posts.js"></script>
     <script type="module" src="main.js"></script>
+    <script type="module" src="./js/translation.js"></script>
 </body>
 
 </html>

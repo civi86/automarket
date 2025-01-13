@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/styles.css" rel="stylesheet">
-    <title>Automarket</title>
+    <title data-lang-key="title">Automarket</title>
 </head>
 <body>
     <header>
@@ -12,60 +12,63 @@
             <img src="../img/logo.png" id="logo" alt="Automarket Logo">
         </a>
         <div id="log-out-div">
+            <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
             <span id="logged-username"></span>
-            <button type="button" id="log-out">Kirjaudu ulos</button>
+            <button type="button" id="log-out" data-lang-key="logout">Kirjaudu ulos</button>
         </div>
     </header>
     <div class="container">
         <nav>
-            <h3>Auto-Marketti</h3>
+            <h3 data-lang-key="title">Auto-Marketti</h3>
             <ul>
-                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
-                <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
-                <li><a href="/sivut/haku.html">Autohaku</a></li>
-                <li><a href="/sivut/viestit.html">Viestit</a></li>
-                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
+                <li><a href="/sivut/julkaisut.html" data-lang-key="findcar">Löydä itsellesi uusi auto</a></li>
+                <li><a href="/sivut/ilmoitus.html" data-lang-key="listcar">Listaa autosi myytäväksi</a></li>
+                <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
+                <li><a href="/sivut/viestit.html" data-lang-key="messages">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
             </ul>
         </nav>
-        <main>
-            <h2>Etsi autoa haluamasi kriteereillä</h2>
-            <p>Syötä ajoneuvon tiedot alla olevaan lomakkeeseen.</p>
+        <main id="main">
+            <div id="car-search">
+                <h2 data-lang-key="search-title">Etsi autoa haluamasi kriteereillä</h2>
+                <p data-lang-key="search-desc">Syötä ajoneuvon tiedot alla olevaan lomakkeeseen.</p>
 
-            <form id="publish">
-                <label for="haku-merkki">Ajoneuvon merkki:</label>
-                <select id="haku-merkki" name="merkki">
-                    <option value="">Valitse merkki</option>
-                </select>
+                <form id="publish">
+                    <label for="haku-merkki" data-lang-key="car-brand-label">Ajoneuvon merkki:</label>
+                    <select id="haku-merkki" name="merkki" data-lang-key="car-brand-placeholder">
+                    </select>
             
-                <label for="haku-malli">Ajoneuvon malli:</label>
-                <select id="haku-malli" name="malli">
-                    <option value="">Valitse malli</option>
-                </select>
+                    <label for="haku-malli" data-lang-key="car-model-label">Ajoneuvon malli:</label>
+                    <select id="haku-malli" name="malli" data-lang-key="car-model-placeholder">
+                    </select>
             
-                <label for="haku-polttoaine">Käyttövoima:</label>
-                <select id="haku-polttoaine" name="polttoaine">
-                    <option value="">Valitse</option>
-                    <option value="bensiini">Bensiini</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="hybridi">Hybridi</option>
-                    <option value="sähkö">Sähkö</option>
-                </select>
+                    <label for="haku-polttoaine" data-lang-key="fuel-label">Käyttövoima:</label>
+                    <select id="haku-polttoaine" name="polttoaine">
+                        <option value="bensiini" data-lang-key="fuel-petrol">Bensiini</option>
+                        <option value="diesel" data-lang-key="fuel-diesel">Diesel</option>
+                        <option value="hybridi" data-lang-key="fuel-hybrid">Hybridi</option>
+                        <option value="sähkö" data-lang-key="fuel-electric">Sähkö</option>
+                    </select>
 
-                <label for="haku-vaihteisto">Vaihteistotyyppi:</label>
-                <select id="haku-vaihteisto" name="vaihteisto">
-                    <option value="">Valitse</option>
-                    <option value="manuaali">Manuaali</option>
-                    <option value="automaatti">Automaatti</option>
-                </select>
+                    <label for="haku-vaihteisto" data-lang-key="gearbox-label">Vaihteistotyyppi:</label>
+                    <select id="haku-vaihteisto" name="vaihteisto">
+                        <option value="manuaali" data-lang-key="gearbox-manual">Manuaali</option>
+                        <option value="automaatti" data-lang-key="gearbox-automatic">Automaatti</option>
+                    </select>
             
-                <label for="haku-max-kilometrit">Maksimikilometrit:</label>
-                <input type="number" id="haku-max-kilometrit" name="max-kilometrit">
+                    <label for="haku-max-kilometrit" data-lang-key="max-km-label">Maksimikilometrit:</label>
+                    <input type="number" id="haku-max-kilometrit" name="max-kilometrit" data-lang-key="max-km-placeholder">
             
-                <label for="haku-max-price">Maksimihinta:</label>
-                <input type="number" id="haku-max-price" name="max-hinta">
+                    <label for="haku-max-price" data-lang-key="max-price-label">Maksimihinta:</label>
+                    <input type="number" id="haku-max-price" name="max-hinta" data-lang-key="max-price-placeholder">
             
-                <button type="button" id="haku-postItem">Lähetä</button>
-            </form>            
+                    <button type="button" id="haku-postItem" data-lang-key="submit-button">Lähetä</button>
+                </form>  
+            </div> 
+            <div id="search-container">
+                <h2 data-lang-key="title2">Kriteereihin sopivat hakutulokset</h2>
+                <div class="ilmoitus" id="items-list">
+                </div>         
         </main>
     </div>
     <footer>
@@ -74,5 +77,6 @@
     <script type="module" src="../js/loggedUser.js"></script>
     <script type="module" src="../js/events/autologout.js"></script>
     <script type="module" src="/js/searchCar.js"></script>
+    <script type="module" src="../js/translation.js"></script>
 </body>
 </html>
