@@ -2,7 +2,8 @@ import { sendMessageRequest } from './apiRequests.js'
 
 const tokenDecode = () => {
     const tokenFromLocalStorage = localStorage.getItem('token')
-    if (tokenFromLocalStorage !== null) {
+
+    if (tokenFromLocalStorage !== 'undefined' && tokenFromLocalStorage !== null) {
         const arrayOfToken = tokenFromLocalStorage.split('.')
         const decodedToken = JSON.parse(atob(arrayOfToken[1]))
         return decodedToken

@@ -26,19 +26,19 @@ async function fetchItems() {
             itemsList.style.fontWeight = 'bold'
             itemsList.style.textAlign = 'center'
             itemsList.style.display = 'block'
-            return
+            return []
         }
         const items = await response.json();
 
         console.log('Fetched Items:', items);
 
-        if (items.length === 0) {
-            itemsList.textContent = 'Ei yhtään ilmoitusta'
-            itemsList.style.fontWeight = 'bold'
-            itemsList.style.textAlign = 'center'
-            itemsList.style.display = 'block'
-            return
-        }
+        // if (items.length === 0) {
+        //     itemsList.textContent = 'Ei yhtään ilmoitusta'
+        //     itemsList.style.fontWeight = 'bold'
+        //     itemsList.style.textAlign = 'center'
+        //     itemsList.style.display = 'block'
+        //     return
+        // }
         const decodedToken = tokenDecode()
 
         items.forEach(item => {
