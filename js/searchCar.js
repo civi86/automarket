@@ -82,6 +82,8 @@ const handleSearch = async (event) => {
         const matchedCars = compareCarData(searchCriteria, carDataList);
 
         if (matchedCars.length > 0) {
+            window.location = "/sivut/julkaisut.html"
+            
             console.log('Matching Cars:', matchedCars);
             notification({
                 error: { name: 'Info', message: `${matchedCars.length} auto(a) löytyi hakukriteereilläsi.` }

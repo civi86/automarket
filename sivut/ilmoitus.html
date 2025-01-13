@@ -12,59 +12,60 @@
             <img src="../img/logo.png" id="logo" alt="Automarket Logo">
         </a>
         <div id="log-out-div">
+            <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
             <span id="logged-username"></span>
-            <button type="button" id="log-out">Kirjaudu ulos</button>
+            <button type="button" id="log-out" data-lang-key="logout">Kirjaudu ulos</button>
         </div>
     </header>
     <div class="container">
         <nav>
             <h3>Auto-Marketti</h3>
             <ul>
-                <li><a href="/sivut/julkaisut.html">Löydä itsellesi uusi auto</a></li>
-                <li><a href="/sivut/ilmoitus.html">Listaa autosi myytäväksi</a></li>
-                <li><a href="/sivut/haku.html">Autohaku</a></li>
-                <li><a href="/sivut/viestit.html">Viestit</a></li>
-                <li><a href="/sivut/yhteystiedot.html">Yhteystiedot</a></li>
+                <li><a href="/sivut/julkaisut.html" data-lang-key="findcar">Löydä itsellesi uusi auto</a></li>
+                <li><a href="/sivut/ilmoitus.html" data-lang-key="listcar">Listaa autosi myytäväksi</a></li>
+                <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
+                <li><a href="/sivut/viestit.html" data-lang-key="messages">Viestit</a></li>
+                <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
             </ul>
         </nav>
         <main>
-            <h2>Listaa ajoneuvosi myytäväksi</h2>
-            <p>Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen.</p>
+            <h2 data-lang-key="header">Listaa ajoneuvosi myytäväksi</h2>
+            <p data-lang-key="p">Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen.</p>
 
             <form id="publish" >
-                <label for="merkki">Ajoneuvon merkki:</label>
+                <label for="merkki" data-lang-key="car-brand-label">Ajoneuvon merkki:</label>
                 <input type="text" id="merkki" name="merkki" placeholder="Esim. Audi" required>
 
-                <label for="malli">Ajoneuvon malli:</label>
+                <label for="malli" data-lang-key="car-model-label">Ajoneuvon malli:</label>
                 <input type="text" id="malli" name="malli" placeholder="Esim. RS5" required>
 
-                <label for="polttoaine">Käyttövoima:</label>
+                <label for="polttoaine" data-lang-key="fuel-label">Käyttövoima:</label>
                 <select id="polttoaine" name="polttoaine" required>
-                    <option value="bensiini">Bensiini</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="hybridi">Hybridi</option>
-                    <option value="sähkö">Sähkö</option>
+                    <option value="bensiini" data-lang-key="fuel-petrol">Bensiini</option>
+                    <option value="diesel" data-lang-key="fuel-diesel">Diesel</option>
+                    <option value="hybridi" data-lang-key="fuel-hybrid">Hybridi</option>
+                    <option value="sähkö" data-lang-key="fuel-electric">Sähkö</option>
                 </select>
 
-                <label for="kilometrit">Kilometrit:</label>
+                <label for="kilometrit" data-lang-key="kilometres">Kilometrit:</label>
                 <input type="number" id="kilometrit" name="kilometrit" placeholder="Esim. 250000" required>
 
-                <label for="vaihteisto">Vaihteistotyyppi:</label>
+                <label for="vaihteisto" data-lang-key="gearbox-label">Vaihteistotyyppi:</label>
                 <select id="vaihteisto" name="vaihteisto" required>
-                    <option value="manuaali">Manuaali</option>
-                    <option value="automaatti">Automaatti</option>
+                    <option value="manuaali" data-lang-key="gearbox-manual">Manuaali</option>
+                    <option value="automaatti" data-lang-key="gearbox-automatic">Automaatti</option>
                 </select>
 
-                <label for="hinta">Hinta:</label>
+                <label for="hinta" data-lang-key="hinta">Hinta:</label>
                 <input type="number" id="hinta" name="hinta" required>
 
-                <label for="kuvaus">Kuvaus ajoneuvosta:</label>
+                <label for="kuvaus" data-lang-key="desc">Kuvaus ajoneuvosta:</label>
                 <input type="input" id="kuvaus" name="kuvaus" required>
 
-                <label for="kuva">Lisää kuva ajoneuvosta:</label>
+                <label for="kuva" data-lang-key="img">Lisää kuva ajoneuvosta:</label>
                 <input type="file" id="kuva" name="kuva" accept="image/*" required>
 
-                <button type="button" id="postItem">Lähetä</button>
+                <button type="button" id="postItem" data-lang-key="submit-button">Lähetä</button>
             </form>
         </main>
     </div>
@@ -74,5 +75,6 @@
     <script type="module" src="../js/loggedUser.js"></script>
     <script type="module" src="../js/events/autologout.js"></script>
     <script type="module" src="/js/sellCar.js"></script>
+    <script type="module" src="../js/translation.js"></script>
 </body>
 </html>
