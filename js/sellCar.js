@@ -1,7 +1,17 @@
 import { notification } from './notification.js'
+import { generateSelectMenu } from './functions.js'
+import { carMarksData } from '../data/carMarks.js'
 import { newItemRequest } from './apiRequests.js'
 
 const postItemBtn = document.getElementById('postItem')
+const publishForm = document.getElementById('publish')
+if (publishForm) {
+    const formMarkSelect = document.getElementById('merkki')
+    const generatedMarkSelect = generateSelectMenu(carMarksData)
+    publishForm.replaceChild(generatedMarkSelect, formMarkSelect)
+}
+
+
 
 const newItemEvent = (event) => {
     try {

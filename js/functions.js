@@ -18,7 +18,6 @@ const loadingIndicator = () => {
 }
 
 const generateContainer = (containerTitle) => {
-    
     const container = document.createElement('div')
     container.classList.add('container-box')
     const headerDiv = document.createElement('div')
@@ -125,6 +124,17 @@ const generateMessageBox = ({title, recipientUserId, announcementId, topicId = n
     messageContainer.appendChild(bodyDiv)
   
     return messageContainer
-  }
+}
 
-export { tokenDecode, loadingIndicator, confirmationBox, generateContainer, generateMessageBox }
+const generateSelectMenu = (array) => {
+  const select = document.createElement('select')
+  array.forEach(row => {
+    const option = document.createElement('option')
+    option.text = row
+    select.add(option)
+    
+  })
+  return select
+}
+
+export { tokenDecode, loadingIndicator, confirmationBox, generateContainer, generateMessageBox, generateSelectMenu }
