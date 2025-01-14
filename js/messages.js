@@ -2,8 +2,8 @@ import { confirmationBox, generateContainer, generateMessageBox } from './functi
 import { sendMessageRequest, messagesRequest, topicsRequest } from './apiRequests.js'
 import { notification } from './notification.js'
 
-const showMessagesBtn = document.getElementById('message-btn')
 const main = document.getElementsByTagName('main')[0]
+const messagesDiv = document.getElementById('messages')
 
 const generateMessagesList = (data) => {
   const div = document.createElement('div')
@@ -82,13 +82,12 @@ const generateTopicsList = (data) => {
                 messagesRequest({ id: topic.id, index: currentIndex })
                   .then(result => {
                     if (result !== undefined && result.status !== 204) {
-                      console.log(currentIndex)
                       receivedMsgDiv.removeChild(messageList)
                       messageList = generateMessagesList(result)
                       receivedMsgDiv.prepend(messageList)
                     }
                   })
-                
+
               })
               receivedMsgDiv.appendChild(moreBtn)
             }
@@ -110,10 +109,74 @@ const generateTopicsList = (data) => {
   return div
 }
 
-topicsRequest({ index: 0 })
+let topicCurrentIndex = 0
+let topicList = null
+
+topicsRequest({ index: topicCurrentIndex })
   .then(result => {
-    if (result !== undefined && result.status !== 204) {
-      const topicList = generateTopicsList(result)
-      main.appendChild(topicList)
+    if (result !== undefined) {
+      if (result.status !== 204) {
+        topicList = generateTopicsList(result.topics)
+        messagesDiv.appendChild(topicList)
+        if (result.totalCount > 10) {
+          const buttonDiv = document.createElement('div')
+          buttonDiv.classList.add('center')
+          const prevButton = document.createElement('button')
+          prevButton.textContent = 'Edelliset'
+          prevButton.setAttribute('disabled', '')
+          prevButton.addEventListener('click', () => { topicCurrentIndex -= 1 })
+          const nextButton = document.createElement('button')
+          nextButton.textContent = 'Seuraavat'
+          nextButton.addEventListener('click', () => {
+            topicCurrentIndex += 1
+            topicsRequest({ index: topicCurrentIndex })
+              .then(result => {
+                if (result !== undefined && result.status !== 204) {
+                  messagesDiv.removeChild(topicList)
+                  topicList = generateTopicsList(result.topics)
+                  messagesDiv.appendChild(topicList)
+                  if (result.totalCount - topicCurrentIndex * 10 < 10) {
+                    nextButton.setAttribute('disabled', '')
+                  }
+                  if (topicCurrentIndex > 0) {
+                    prevButton.removeAttribute('disabled')
+                  }
+                }
+              })
+          })
+          prevButton.addEventListener('click', () => {
+            if (topicCurrentIndex > 0) {
+              topicCurrentIndex -= 1
+            }
+            else {
+              topicCurrentIndex = 0
+            }
+            if (topicCurrentIndex === 0) {
+              prevButton.setAttribute('disabled', '')
+            }
+            topicsRequest({ index: topicCurrentIndex })
+              .then(result => {
+                if (result !== undefined && result.status !== 204) {
+                  messagesDiv.removeChild(topicList)
+                  topicList = generateTopicsList(result.topics)
+                  messagesDiv.appendChild(topicList)
+                  if (result.totalCount - topicCurrentIndex * 10 > 10) {
+                    nextButton.removeAttribute('disabled')
+                  }
+                }
+              })
+
+          })
+          buttonDiv.appendChild(prevButton)
+          buttonDiv.appendChild(nextButton)
+          main.appendChild(buttonDiv)
+        }
+      }
+      else {
+        const h3 = document.createElement('h3')
+        h3.textContent = 'Ei viestejä'
+        h3.classList.add('center')
+        main.appendChild(h3)
+      }
     }
   })
