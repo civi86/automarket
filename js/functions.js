@@ -131,6 +131,7 @@ const generateSelectMenu = (array) => {
   array.forEach(row => {
     const option = document.createElement('option')
     option.text = row
+    option.value = row
     select.add(option)
     
   })

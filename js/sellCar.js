@@ -8,10 +8,10 @@ const publishForm = document.getElementById('publish')
 if (publishForm) {
     const formMarkSelect = document.getElementById('merkki')
     const generatedMarkSelect = generateSelectMenu(carMarksData)
+    generatedMarkSelect.setAttribute('name', 'merkki')
+    generatedMarkSelect.id = 'merkki'
     publishForm.replaceChild(generatedMarkSelect, formMarkSelect)
 }
-
-
 
 const newItemEvent = (event) => {
     try {
@@ -38,6 +38,7 @@ const newItemEvent = (event) => {
         }]
 
         const form = event.target.parentElement
+        console.log(form)
         const formDataRaw = new FormData(form)
         const data = new FormData()
         const keys = form.id === 'car-purchase-form'
