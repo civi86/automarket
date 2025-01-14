@@ -15,6 +15,7 @@ const loginEvent = (event) => {
     indicatorDiv.style.width = '20px'
     indicatorDiv.style.height = '20px'
     loginSubmitBtn.parentElement.prepend(indicatorDiv)
+    loginSubmitBtn.parentElement.parentElement.style.height = 'unset'
 
     const username = usernameElement.value
     const password = passwordElement.value

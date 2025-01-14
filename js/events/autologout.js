@@ -9,7 +9,7 @@ const autoLogout = () => {
     div.appendChild(counter)
     const timestamp = Date.now()
     const logoutTime = decodedToken.exp * 1000 - timestamp
-    console.log(`Time now: ${new Date(timestamp).toString()}\nLogout time: ${new Date(decodedToken.exp * 1000).toString()}`)
+    //console.log(`Time now: ${new Date(timestamp).toString()}\nLogout time: ${new Date(decodedToken.exp * 1000).toString()}`)
     const timer = setInterval(() => {
       const time = decodedToken.exp * 1000 - Date.now()
       counter.textContent = `Aikaa uloskirjautmiseen: ${new Date(time).toISOString().substring(14, 19)}`
