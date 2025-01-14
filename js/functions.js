@@ -18,6 +18,7 @@ const loadingIndicator = () => {
 }
 
 const generateContainer = (containerTitle) => {
+    
     const container = document.createElement('div')
     container.classList.add('container-box')
     const headerDiv = document.createElement('div')
@@ -31,14 +32,20 @@ const generateContainer = (containerTitle) => {
     closeBtn.id = 'close-container-btn'
 
     headerDiv.appendChild(closeBtn)
-    closeBtn.addEventListener('click', () => { container.parentElement.removeChild(container) })
+
+    const closePromise = new Promise((resolve, reject) => {
+        closeBtn.addEventListener('click', () => {
+          container.parentElement.removeChild(container)
+          resolve()
+      })
+    })
     container.appendChild(headerDiv)
     const bodyDiv = document.createElement('div')
     bodyDiv.classList.add('center')
 
     container.appendChild(bodyDiv)
 
-    return { container, headerDiv, bodyDiv }
+    return { container, headerDiv, bodyDiv, closePromise }
 }
 
 const confirmationBox = (message) => {

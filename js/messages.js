@@ -7,7 +7,7 @@ const messagesDiv = document.getElementById('messages')
 
 const generateMessagesList = (data) => {
   const div = document.createElement('div')
-  div.classList.add('messages-list')
+  div.classList.add('msg-table')
   const table = document.createElement('table')
   data.forEach(row => {
     const tableRow = table.insertRow()
@@ -31,7 +31,9 @@ const generateTopicsList = (data) => {
   div.classList.add('topics-list')
   div.classList.add('center')
   const table = document.createElement('table')
-  const header = table.createTHead();
+  const header = table.createTHead()
+  header.style.fontWeight = 'bold'
+  const body = table.createTBody()
   const row = header.insertRow()
   for (const item of headerArray) {
     const cell = row.insertCell()
@@ -39,20 +41,24 @@ const generateTopicsList = (data) => {
   }
 
   data.forEach(topic => {
-    const tableRow = table.insertRow()
+    const tableRow = body.insertRow()
     const senderCell = tableRow.insertCell()
     const recipientCell = tableRow.insertCell()
     const typeCell = tableRow.insertCell()
     const titleCell = tableRow.insertCell()
     const dateCell = tableRow.insertCell()
     const countCell = tableRow.insertCell()
+    countCell.style.textAlign = 'right'
     const btnCell = tableRow.insertCell()
 
     senderCell.textContent = topic.senderUser.username
     recipientCell.textContent = topic.recipientUser.username
     const announcementTypes = { sell: 'Myynti', buy: 'Osto' }
     typeCell.textContent = announcementTypes[topic.announcement.announcementType]
-    titleCell.textContent = `${topic.announcement.mark} ${topic.announcement.model} ${topic.announcement.mileage} km ${topic.announcement.price} €`
+    const mileage = topic.announcement.mileage === undefined
+      ? ''
+      : `${topic.announcement.mileage} km`
+    titleCell.textContent = `${topic.announcement.mark} ${topic.announcement.model} ${mileage} ${topic.announcement.price} €`
     const date = new Date(topic.sendDate)
     dateCell.textContent = `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
     countCell.textContent = topic.messages.length
@@ -60,11 +66,15 @@ const generateTopicsList = (data) => {
     const button = document.createElement('button')
     button.textContent = "Lue viestit"
     button.addEventListener('click', async (event) => {
+      const preventBgClicks = document.createElement('div')
+      preventBgClicks.classList.add('prevent-bg-clicks')
+      messagesDiv.prepend(preventBgClicks)
       let currentIndex = 0
       messagesRequest({ id: topic.id, index: currentIndex })
         .then(result => {
           if (result !== undefined && result.status !== 204) {
             const messagesContainer = generateContainer('Viestit')
+            const closePromise = messagesContainer.closePromise
             const receivedMsgDiv = document.createElement('div')
 
             messagesContainer.bodyDiv.appendChild(receivedMsgDiv)
@@ -97,9 +107,11 @@ const generateTopicsList = (data) => {
               })
               receivedMsgDiv.appendChild(moreBtn)
             }
+            closePromise
+              .then(() => {messagesDiv.removeChild(preventBgClicks)})
 
             const main = document.getElementsByTagName('main')[0]
-            main.prepend(messagesContainer.container)
+            main.appendChild(messagesContainer.container)
           }
           else {
             notification({ error: { name: 'Info', message: 'Ei viestejä' }, doWeRedirectLater: false })
