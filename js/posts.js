@@ -2,8 +2,8 @@ import { loadingIndicator, tokenDecode } from "./functions.js";
 import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 
-//const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
-const backEndUrl = 'http://localhost:3001/api/items'
+const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
+//const backEndUrl = 'http://localhost:3001/api/items'
 async function fetchItems() {
     try {
         const itemsList = document.getElementById('items-list');
