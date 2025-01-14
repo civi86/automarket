@@ -12,6 +12,11 @@ const generateMessagesList = (data) => {
   data.forEach(row => {
     const tableRow = table.insertRow()
     for (const key in row) {
+      if (key === 'sendDate') {
+        const date = new Date(row[key])
+        tableRow.insertCell().textContent = `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
+        continue
+      }
       tableRow.insertCell().textContent = row[key]
     }
   })
@@ -48,7 +53,8 @@ const generateTopicsList = (data) => {
     const announcementTypes = { sell: 'Myynti', buy: 'Osto' }
     typeCell.textContent = announcementTypes[topic.announcement.announcementType]
     titleCell.textContent = `${topic.announcement.mark} ${topic.announcement.model} ${topic.announcement.mileage} km ${topic.announcement.price} €`
-    dateCell.textContent = topic.sendDate
+    const date = new Date(topic.sendDate)
+    dateCell.textContent = `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
     countCell.textContent = topic.messages.length
 
     const button = document.createElement('button')
