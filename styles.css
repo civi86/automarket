@@ -382,6 +382,21 @@ p {
     margin: 0px 5px;
 }
 
+.edit-form {
+    display: grid;
+    margin: 20px;
+}
+
+.edit-form label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.edit-form input, select{
+    box-sizing: border-box;
+    padding: 6px 2px;
+}
+
 div:has(.loading) {
     height: 50%;
     justify-content: center;

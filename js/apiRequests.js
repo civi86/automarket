@@ -102,7 +102,6 @@ const deleteUserRequest = async (userId) => {
 }
 
 const newItemRequest = async (data) => {
-    console.log(data)
     const token = localStorage.getItem('token')
     if (token) {
         const request = new Request(backEndUrl + '/item', {
@@ -134,6 +133,41 @@ const deleteItemRequest = async (itemId) => {
 const itemsListRequest = async () => {
     const request = new Request(backEndUrl + '/items', {
         method: 'GET',
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+const itemRequest = async (id) => {
+    const request = new Request(backEndUrl + `/item/${id}`, {
+        method: 'GET',
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+const itemEditRequest = async (data) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + '/item', {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+const itemActiveToggleRequest = async (id) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + `/item/active/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
     })
     const result = await fetchRequest(request)
     return result
@@ -177,4 +211,31 @@ const topicsRequest = async (data) => {
     return result
 }
 
-export { registrationRequest, loginRequest, usersListRequest, deleteUserRequest, newItemRequest, itemsListRequest, deleteItemRequest, sendMessageRequest, messagesRequest, topicsRequest }
+const userRequest = async () => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + '/user', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+    const result = await fetchRequest(request)
+    return result
+}
+
+export { 
+    registrationRequest,
+    loginRequest,
+    usersListRequest,
+    deleteUserRequest,
+    newItemRequest,
+    itemsListRequest,
+    itemRequest,
+    itemEditRequest,
+    itemActiveToggleRequest,
+    deleteItemRequest,
+    sendMessageRequest,
+    messagesRequest,
+    topicsRequest,
+    userRequest,
+}

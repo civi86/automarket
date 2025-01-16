@@ -1,5 +1,5 @@
 import { usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest } from './apiRequests.js'
-import { tokenDecode, loadingIndicator, confirmationBox } from './functions.js'
+import { tokenDecode, loadingIndicator, confirmationBox, filterData } from './functions.js'
 import { notification } from './notification.js'
 
 const table = document.createElement('table')
@@ -114,18 +114,6 @@ const generateTableBody = (table, data, filterList, eventCallBack) => {
   })
 }
 
-const filterData = (data, allowedKeys) => {
-  const list = data.map(item => {
-    return Object.fromEntries(
-      Object.entries(item).filter(
-        ([key]) => key in allowedKeys
-      )
-    )
-  })
-
-  return list
-}
-
 const generateTable = (table, rawData, filterList, eventCallBack) => {
   table.innerHTML = ''
   const filteredData = filterData(rawData, filterList)
@@ -180,7 +168,7 @@ const showAnnouncementsListEvent = async (event) => {
         fuelType: 'Fuel type',
         mileage: 'Mileage',
         price: 'Price',
-        onSale: 'Is it for sale?',
+        onActive: 'Is it for sale?',
         createdDate: 'Announcement creation date',
         user: 'User',
         delete: 'Delete'
