@@ -50,7 +50,6 @@ const generateContainer = (containerTitle) => {
   headerDiv.appendChild(h3)
   const closeBtn = document.createElement('button')
   closeBtn.textContent = 'X'
-  closeBtn.id = 'close-container-btn'
 
   headerDiv.appendChild(closeBtn)
 

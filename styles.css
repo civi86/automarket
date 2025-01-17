@@ -257,6 +257,7 @@ p {
 
 .msg-container,
 .container-box {
+    z-index: 100;
     position: absolute;
     padding-bottom: 10px;
     top: 6vi;
@@ -339,7 +340,7 @@ p {
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 99;
+    z-index: auto;
 }
 
 .msg-table td:nth-child(2) {
@@ -384,7 +385,7 @@ p {
 
 .edit-form {
     display: grid;
-    margin: 20px;
+    margin: 20px 0px;
 }
 
 .edit-form label {

@@ -43,11 +43,11 @@ const generateTable = (data, headers) => {
   return table
 }
 
-const generateEditForm = (data) => {
+const generateEditForm = (data, labels) => {
   const form = document.createElement('form')
   for (const [key, value] of data) {
     const label = document.createElement('label')
-    label.textContent = key
+    label.textContent = labels[key]
     label.setAttribute('for', key)
     form.appendChild(label)
     if (key === 'mark' || key === 'fuelType' || key === 'gearBoxType') {
@@ -103,6 +103,8 @@ const updateAnnouncements = () => {
 }
 
 const parseAnnouncementData = async (data) => {
+  const preventClicksDiv = document.createElement('div')
+  preventClicksDiv.classList.add('prevent-bg-clicks')
   const main = document.getElementsByTagName('main')[0]
   const array = []
   data.forEach(item => {
@@ -119,15 +121,20 @@ const parseAnnouncementData = async (data) => {
     saleToggleBtn.addEventListener('click', () => {
       const confirmBox = confirmationBox('Vaihdetaanko tilaa?')
       main.appendChild(confirmBox.containerDiv)
+      main.prepend(preventClicksDiv)
       confirmBox.confirmationPromise
         .then(() => {
           itemActiveToggleRequest(item.id)
             .then(() => {
               updateAnnouncements()
               main.removeChild(confirmBox.containerDiv)
+              main.removeChild(preventClicksDiv)
             })
         })
-        .catch(() => main.removeChild(confirmBox.containerDiv))
+        .catch(() => {
+          main.removeChild(confirmBox.containerDiv)
+          main.removeChild(preventClicksDiv)
+        })
     })
 
     const editBtn = document.createElement('button')
@@ -135,22 +142,23 @@ const parseAnnouncementData = async (data) => {
     editBtn.addEventListener('click', () => {
       itemRequest(item.id)
         .then(result => {
-          const filterList = ['mark', 'model', 'fuelType', 'mileage', 'year', 'price', 'gearBoxType', 'description']
+          const filterList = { mark: 'Ajoneuvon merkki', model: 'Ajoneuvon malli', fuelType: 'Käyttövoima', mileage: 'Kilometrit', year: 'Vuosimalli', price: 'Hinta/budjetti', gearBoxType: 'Vaihteisto', description: 'Ilmoituksen kuvaus' }
           const editContainer = generateContainer('Muokkaa ilmoitusta')
-          const filteredData = filterKeys(result, filterList)
-          const form = generateEditForm(filteredData)
+          const filteredData = filterKeys(result, Object.keys(filterList))
+          const form = generateEditForm(filteredData, filterList)
 
           const contentDiv = document.createElement('div')
+          contentDiv.style.width = '50%'
           contentDiv.appendChild(form)
           const submitBtn = document.createElement('button')
           submitBtn.textContent = 'Lähetä'
-          submitBtn.style.marginLeft = '25%'
+          submitBtn.style.marginLeft = '50%'
           submitBtn.style.padding = '10px'
           submitBtn.addEventListener('click', () => {
             const confirmBox = confirmationBox('Lähetetäänkö?')
             contentDiv.appendChild(confirmBox.containerDiv)
-            const confirmPromise = confirmBox.confirmationPromise
-            confirmPromise
+            main.prepend(preventClicksDiv)
+            confirmBox.confirmationPromise
               .then(() => {
                 const data = new FormData(form)
                 data.append('id', result.id)
@@ -164,13 +172,21 @@ const parseAnnouncementData = async (data) => {
                     }
                   })
                 main.removeChild(editContainer.container)
+                main.removeChild(preventClicksDiv)
               })
-              .catch(() => { main.removeChild(editContainer.container) })
+              .catch(() => { 
+                main.removeChild(editContainer.container)
+                main.removeChild(preventClicksDiv)
+              })
           })
           contentDiv.appendChild(submitBtn)
           editContainer.bodyDiv.appendChild(contentDiv)
-
+          
           main.appendChild(editContainer.container)
+          editContainer.closePromise
+            .then(() => {main.removeChild(preventClicksDiv)})
+
+          main.prepend(preventClicksDiv)
         })
     })
     
@@ -179,15 +195,20 @@ const parseAnnouncementData = async (data) => {
     deleteBtn.addEventListener('click', () => {
       const confirmBox = confirmationBox('Poistetaanko?')
       main.appendChild(confirmBox.containerDiv)
+      main.prepend(preventClicksDiv)
       confirmBox.confirmationPromise
         .then(() => {
           deleteItemRequest(item.id)
             .then(() => {
               updateAnnouncements()
               main.removeChild(confirmBox.containerDiv)
+              main.removeChild(preventClicksDiv)
             })
         })
-        .catch(() => main.removeChild(confirmBox.containerDiv))
+        .catch(() => {
+          main.removeChild(confirmBox.containerDiv)
+          main.removeChild(preventClicksDiv)
+        })
     })
 
     array.push([type, title, dateString, saleToggleBtn, editBtn, deleteBtn])
