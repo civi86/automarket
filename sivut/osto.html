@@ -3,8 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/styles.css" rel="stylesheet">
     <title>Automarket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-image: url("img/main.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ad0000;
+            color: white;
+            padding: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #logo {
+            position: static;
+            width: 300px;
+            height: auto;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            margin: 1 auto;
+        }
+
+        nav {
+            background-color: #f4f4f4;
+            width: 250px;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            color: #ad0000;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.884);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 60px;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ad0000;
+            outline: none;
+        }
+
+        button {
+            background-color: #ad0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #9b0000;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ad0000;
+        }
+    </style>
 </head>
 <body>
     <header>
