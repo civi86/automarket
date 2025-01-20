@@ -3,8 +3,8 @@ import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 import { itemRequest } from "./apiRequests.js";
 
-//const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
-const backEndUrl = 'http://localhost:3001/api/items'
+const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
+//const backEndUrl = 'http://localhost:3001/api/items'
 
 const main = document.getElementsByTagName('main')[0]
 
