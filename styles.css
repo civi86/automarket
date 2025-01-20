@@ -147,13 +147,29 @@ footer {
 }
 
 #publish input,
-#publish select,
+#publish select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
 #publish button {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+    margin-top: 20px;
+    background-color: #ad0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#publish button:hover {
+    background-color: #9b0000;
 }
 
 #publish input[type="file"] {

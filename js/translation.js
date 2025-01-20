@@ -38,9 +38,11 @@ const translations = {
         "hinta": "Price",
         "desc": "Description",
         "img": "Add a picture",
-        "kilometres": "Kilometres",
+        "kilometres": "Kilometres:",
         "title2": "Results that fit the search criteria",
-        "managecar": "Manage your notifications"
+        "managecar": "Manage your notifications",
+        "buycar": "Make a buy listing",
+        "budget": "Budget (€)"
     },
     fi: {
         "title": "Auto-Marketti",
@@ -83,7 +85,9 @@ const translations = {
         "img": "Lisää kuva ajoneuvosta",
         "kilometres": "Kilometrit",
         "title2": "Kriteereihin sopivat hakutulokset",
-        "managecar": "Hallitse omia ilmoituksia"
+        "managecar": "Hallitse omia ilmoituksia",
+        "buycar": "Tee ostoilmoitus",
+        "budget": "Budjetti (€)"
     }
 };
 
