@@ -40,14 +40,19 @@ const formatDate = (rawDate) => {
 }
 
 const generateContainer = (containerTitle) => {
+
   const container = document.createElement('div')
   container.classList.add('container-box')
+
   const headerDiv = document.createElement('div')
   headerDiv.classList.add('container-header')
+
   const h3 = document.createElement('h3')
   h3.classList.add('center')
   h3.textContent = containerTitle
+
   headerDiv.appendChild(h3)
+
   const closeBtn = document.createElement('button')
   closeBtn.textContent = 'X'
 
@@ -55,15 +60,20 @@ const generateContainer = (containerTitle) => {
 
   const closePromise = new Promise((resolve, reject) => {
     closeBtn.addEventListener('click', () => {
-      container.parentElement.removeChild(container)
+      container.parentElement.removeChild(container);
+      const element = document.querySelector('.container-box2');
+      element.classList.add('hidden');
       resolve()
     })
   })
+
   container.appendChild(headerDiv)
+
   const bodyDiv = document.createElement('div')
   bodyDiv.classList.add('center')
 
   container.appendChild(bodyDiv)
+
   return { container, headerDiv, bodyDiv, closePromise }
 }
 
@@ -96,8 +106,16 @@ const confirmationBox = (message) => {
   return { containerDiv, confirmationPromise }
 }
 
-const generateMessageBox = ({ title, recipientUserId, announcementId, topicId = null, main }) => {
-  const container = generateContainer(title)
+const generateMessageBox = ({ title, recipientUserId, announcementId, itemDescription, topicId = null, main }) => {
+  const container = generateContainer(title, itemDescription)
+
+  const container2 = document.createElement('div');
+  container2.classList.add('container-box2');
+
+  const descElement = document.createElement('h2');
+  descElement.textContent = `Kuvaus ajoneuvosta: ${itemDescription}`;
+  container2.appendChild(descElement);
+
   const messageContainer = container.container
   messageContainer.classList.add('msg-container')
   const headerDiv = container.headerDiv
@@ -158,6 +176,7 @@ const generateMessageBox = ({ title, recipientUserId, announcementId, topicId = 
     })
 
   return messageContainer
+
 }
 
 const generateSelectMenu = (array, setSelectedValue) => {

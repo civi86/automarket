@@ -122,7 +122,7 @@ async function fetchItems() {
                     if (item.announcementType === 'buy') {
                         sendMessageBtn.textContent = 'Lähetä viesti ilmoituksen jättäjälle'
                     }
-                    sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id) })
+                    sendMessageBtn.addEventListener('click', () => { openSendMessageEvent(item.user, item.id, item.description)})
                     listItem.appendChild(sendMessageBtn)
                 }
             }

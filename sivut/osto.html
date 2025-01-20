@@ -3,53 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/styles.css" rel="stylesheet">
     <title>Automarket</title>
+    <link href="/styles.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-image: url("/img/main.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ad0000;
+            color: white;
+            padding: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+        }
+
+        #logo {
+            position: static;
+            width: 300px;
+            height: auto;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            margin: 1 auto;
+        }
+
+        nav {
+            background-color: #f4f4f4;
+            width: 250px;
+            padding: 30px;
+            border-right: 1px solid #ccc;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+            color: #ad0000;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.884);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 60px;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #ad0000;
+            outline: none;
+        }
+
+        .buttons {
+            background-color: #ad0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #9b0000;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ad0000;
+        }
+    </style>
 </head>
 <body>
     <header>
         <a href="/index.html">
             <img src="../img/logo.png" id="logo" alt="Automarket Logo">
-            <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
         </a>
+        <div id="log-out-div">
+            <button id="language-toggle" data-lang-key="switch-language">Switch to: English</button>
+            <span id="logged-username"></span>
+            <button type="button" id="log-out" data-lang-key="logout">Kirjaudu ulos</button>
+        </div>
     </header>
     <div class="container">
         <nav>
-            <h3>Auto-Marketti</h3>
+            <h3 data-lang-key="title">Auto-Marketti</h3>
             <ul>
                 <li><a href="/sivut/julkaisut.html" data-lang-key="findcar">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/ilmoitus.html" data-lang-key="listcar">Listaa autosi myytäväksi</a></li>
-                <li><a href="/sivut/hallinnoi.html" data-lang-key="managecar">Hallitse omia ilmoituksia</a></li>
                 <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
+                <li><a href="/sivut/osto.html" data-lang-key="buycar">Tee ostoilmoitus</a></li>
+                <li><a href="/sivut/hallinnoi.html" data-lang-key="managecar">Hallitse omia ilmoituksia</a></li>
                 <li><a href="/sivut/viestit.html" data-lang-key="messages">Viestit</a></li>
                 <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
             </ul>
         </nav>
         <main>
-            <h2>Tee ostoilmoitus</h2>
+            <h2 data-lang-key="buycar">Tee ostoilmoitus</h2>
             <form id="car-purchase-form">
-                <label for="car-make">Merkki:</label>
+                <label for="car-make" data-lang-key="car-brand-label">Merkki:</label>
                 <input type="text" id="car-make" name="car-make" placeholder="Esim. Toyota" required>
     
-                <label for="car-model">Malli:</label>
+                <label for="car-model" data-lang-key="car-model-label">Malli:</label>
                 <input type="text" id="car-model" name="car-model" placeholder="Esim. Corolla" required>
 
-                <label for="car-model">Vaihteisto:</label>
+                <label for="car-model" data-lang-key="gearbox-label">Vaihteisto:</label>
                 <input type="text" id="car-gear" name="car-gear" placeholder="Esim. Manuaali/Automaatti" required>
     
-                <label for="car-year">Vuosimalli:</label>
+                <label for="car-year" data-lang-key="kilometres">Vuosimalli:</label>
                 <input type="number" id="car-year" name="car-year" placeholder="Esim. 2020" required>
     
-                <label for="car-price">Budjetti (€):</label>
+                <label for="car-price" data-lang-key="budget">Budjetti (€):</label>
                 <input type="number" id="car-price" name="car-price" placeholder="Esim. 15000" required>
     
-                <label for="car-description">Kuvaus:</label>
+                <label for="car-description" data-lang-key="desc">Kuvaus:</label>
                 <textarea id="car-description" name="car-description" rows="5" placeholder="Lisätietoja autosta"></textarea>
     
-                <label for="car-image">Kuva autosta:</label>
+                <label for="car-image" data-lang-key="img">Kuva autosta:</label>
                 <input type="file" id="car-image" name="car-image" accept="image/*">
     
-                <button type="submit" id="postItem">Lähetä ilmoitus</button>
+                <button type="submit" id="postItem" class="buttons" data-lang-key="submit-button">Lähetä ilmoitus</button>
             </form>
         </main>
     </div>
@@ -57,7 +187,9 @@
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
     <script type="module" src="../js/sellCar.js"></script>
-    <script src="../main.js"></script>
+    <script type="module" src="../js/loggedUser.js"></script>
+    <script type="module" src="../js/events/autologout.js"></script>
+    <script type="module" src="../js/events/logout.js"></script>
     <script type="module" src="../js/translation.js"></script>
 </body>
 </html>
