@@ -1,47 +1,9 @@
 import { deleteItemRequest, itemActiveToggleRequest, itemEditRequest, itemRequest, userRequest } from '../js/apiRequests.js'
-import { generateContainer, isDomObject, filterKeys, generateSelectMenu, confirmationBox } from './functions.js'
+import { generateContainer, isDomObject, getFilteredMap, generateSelectMenu, confirmationBox, generateTable } from './functions.js'
 import { carMarksData } from '../data/carMarks.js'
 import { notification } from './notification.js'
 
 const announcementTypes = { sell: 'Myynti', buy: 'Osto' }
-
-const generateTableHeader = (headerArray) => {
-  const header = document.createElement('thead')
-  const row = header.insertRow()
-  for (const item of headerArray) {
-    const cell = row.insertCell()
-    cell.textContent = item
-  }
-  return header
-}
-
-const generateTableBody = (bodyArrays) => {
-  const body = document.createElement('tbody')
-  for (const array of bodyArrays) {
-    const tableRow = body.insertRow()
-    for (const item of array) {
-      const cell = tableRow.insertCell()
-      if (isDomObject(item)) {
-        cell.appendChild(item)
-        continue
-      }
-      cell.textContent = item
-    }
-  }
-  return body
-}
-
-const generateTable = (data, headers) => {
-  const table = document.createElement('table')
-
-  const tableHeader = generateTableHeader(headers)
-  const tableBody = generateTableBody(data)
-
-  table.appendChild(tableHeader)
-  table.appendChild(tableBody)
-
-  return table
-}
 
 const generateEditForm = (data, labels) => {
   const form = document.createElement('form')
@@ -103,6 +65,7 @@ const updateAnnouncements = () => {
 }
 
 const parseAnnouncementData = async (data) => {
+  console.log(data)
   const preventClicksDiv = document.createElement('div')
   preventClicksDiv.classList.add('prevent-bg-clicks')
   const main = document.getElementsByTagName('main')[0]
@@ -144,7 +107,7 @@ const parseAnnouncementData = async (data) => {
         .then(result => {
           const filterList = { mark: 'Ajoneuvon merkki', model: 'Ajoneuvon malli', fuelType: 'Käyttövoima', mileage: 'Kilometrit', year: 'Vuosimalli', price: 'Hinta/budjetti', gearBoxType: 'Vaihteisto', description: 'Ilmoituksen kuvaus' }
           const editContainer = generateContainer('Muokkaa ilmoitusta')
-          const filteredData = filterKeys(result, Object.keys(filterList))
+          const filteredData = getFilteredMap(result, Object.keys(filterList))
           const form = generateEditForm(filteredData, filterList)
 
           const contentDiv = document.createElement('div')
@@ -174,22 +137,22 @@ const parseAnnouncementData = async (data) => {
                 main.removeChild(editContainer.container)
                 main.removeChild(preventClicksDiv)
               })
-              .catch(() => { 
+              .catch(() => {
                 main.removeChild(editContainer.container)
                 main.removeChild(preventClicksDiv)
               })
           })
           contentDiv.appendChild(submitBtn)
           editContainer.bodyDiv.appendChild(contentDiv)
-          
+
           main.appendChild(editContainer.container)
           editContainer.closePromise
-            .then(() => {main.removeChild(preventClicksDiv)})
+            .then(() => { main.removeChild(preventClicksDiv) })
 
           main.prepend(preventClicksDiv)
         })
     })
-    
+
     const deleteBtn = document.createElement('button')
     deleteBtn.textContent = 'Poista'
     deleteBtn.addEventListener('click', () => {
@@ -229,7 +192,7 @@ if (parsedAnnouncementData.length === 0) {
   containerDiv.textContent = 'Ei luotuja ilmoituksia'
 }
 else {
-  const table = generateTable(parsedAnnouncementData, ['Tyyppi', 'Otsikko', 'Päiväys', 'Myynnissä/aktiivinen', 'Muokkaa', 'Poista'])
+  const table = generateTable({ data: parsedAnnouncementData, headers: ['Tyyppi', 'Otsikko', 'Päiväys', 'Myynnissä/aktiivinen', 'Muokkaa', 'Poista'] })
   containerDiv.appendChild(table)
 }
 

@@ -17,26 +17,26 @@ const loadingIndicator = () => {
   return div
 }
 
-const filterData = (data, allowedKeys) => {
-  const list = data.map(item => {
-    return Object.fromEntries(
-      Object.entries(item).filter(
-        ([key]) => key in allowedKeys
-      )
-    )
-  })
-
-  return list
+const getFilteredArray = (rawDataObject, filterObject) => {
+  const filteredData = Object.keys(filterObject).filter(key => key in rawDataObject).map((key) => [
+    filterObject[key],
+    rawDataObject[key],
+  ])
+  return filteredData
 }
 
-const filterKeys = (data, allowedKeys) => {
-  // const filteredData = allowedKeys.filter(key => key in data).map((key) => [
-  //   key,
-  //   data[key],
-  // ])
+const getFilteredMap = (data, allowedKeys) => {
   const filteredData = new Map(allowedKeys.filter(key => key in data).map(key => [key, data[key]]))
-
   return filteredData
+}
+
+const isDomObject = (entity) => {
+  return typeof entity === 'object' && entity.nodeType !== undefined
+}
+
+const formatDate = (rawDate) => {
+  const date = new Date(rawDate)
+  return `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
 }
 
 const generateContainer = (containerTitle) => {
@@ -121,11 +121,18 @@ const generateMessageBox = ({ title, recipientUserId, announcementId, topicId = 
       const message = messageArea.value
       sendMessageRequest({ recipientUserId, message, announcementId, topicId })
         .then(() => {
+          const main = document.getElementsByTagName('main')[0]
+          const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
+          main.removeChild(preventBgClicks)
           main.removeChild(messageContainer)
-
         })
     })
-    .catch(() => messageContainer.removeChild(confirmationDiv))
+    .catch(() => {
+      const main = document.getElementsByTagName('main')[0]
+      const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
+      main.removeChild(preventBgClicks)
+      main.removeChild(messageContainer)
+    })
 
   const messageButton = document.createElement('button')
   messageButton.textContent = 'Lähetä'
@@ -142,6 +149,13 @@ const generateMessageBox = ({ title, recipientUserId, announcementId, topicId = 
   bodyDiv.appendChild(form)
   messageContainer.appendChild(headerDiv)
   messageContainer.appendChild(bodyDiv)
+
+  container.closePromise
+    .then(() => {
+      const main = document.getElementsByTagName('main')[0]
+      const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
+      main.removeChild(preventBgClicks)
+    })
 
   return messageContainer
 }
@@ -161,10 +175,56 @@ const generateSelectMenu = (array, setSelectedValue) => {
   return select
 }
 
-const isDomObject = (entity) => {
-  return typeof entity === 'object' && entity.nodeType !== undefined
+const generateTableHeader = (headerArray) => {
+  const header = document.createElement('thead')
+  const row = header.insertRow()
+  for (const item of headerArray) {
+    const cell = row.insertCell()
+    cell.textContent = item
+  }
+  return header
 }
 
+const generateTableBody = (bodyArrays) => {
+  const body = document.createElement('tbody')
+  for (const array of bodyArrays) {
+    const tableRow = body.insertRow()
+    for (const item of array) {
+      const cell = tableRow.insertCell()
+      if (isDomObject(item)) {
+        cell.appendChild(item)
+        continue
+      }
+      cell.textContent = item
+    }
+  }
+  return body
+}
 
+const generateTable = ({data, headers = null}) => {
+  const table = document.createElement('table')
 
-export { tokenDecode, loadingIndicator, confirmationBox, generateContainer, generateMessageBox, generateSelectMenu, isDomObject, filterData, filterKeys }
+  if (headers) {
+    const tableHeader = generateTableHeader(headers)
+    table.appendChild(tableHeader)
+  }
+  const tableBody = generateTableBody(data)
+
+  table.appendChild(tableBody)
+
+  return table
+}
+
+export {
+  tokenDecode,
+  loadingIndicator,
+  confirmationBox,
+  generateContainer,
+  generateMessageBox,
+  generateSelectMenu,
+  generateTable,
+  isDomObject,
+  getFilteredMap,
+  getFilteredArray,
+  formatDate,
+}
