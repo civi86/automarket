@@ -1,5 +1,5 @@
 import { usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest } from './apiRequests.js'
-import { tokenDecode, loadingIndicator, confirmationBox, filterData } from './functions.js'
+import { tokenDecode, loadingIndicator, confirmationBox } from './functions.js'
 import { notification } from './notification.js'
 
 const table = document.createElement('table')
@@ -23,6 +23,18 @@ if (!localStorage.getItem('token') || tokenDecode().role !== 'admin') {
   body.innerHTML = ''
   notification({ error: { name: 'Error', message: 'Ei oikeuksia!' }, doWeRedirectLater: true })
   setTimeout(() => { window.location = '../index.html' }, 5000)
+}
+
+const filterData = (data, allowedKeys) => {
+  const list = data.map(item => {
+    return Object.fromEntries(
+      Object.entries(item).filter(
+        ([key]) => key in allowedKeys
+      )
+    )
+  })
+
+  return list
 }
 
 const deleteUserEvent = async (event, userId) => {

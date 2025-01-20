@@ -1,9 +1,13 @@
-import { loadingIndicator, tokenDecode } from "./functions.js";
+import { formatDate, generateContainer, generateTable, getFilteredArray, getFilteredMap, loadingIndicator, tokenDecode } from "./functions.js";
 import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
+import { itemRequest } from "./apiRequests.js";
 
 const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
 //const backEndUrl = 'http://localhost:3001/api/items'
+
+const main = document.getElementsByTagName('main')[0]
+
 async function fetchItems() {
     try {
         const itemsList = document.getElementById('items-list');
@@ -44,6 +48,8 @@ async function fetchItems() {
         items.forEach(item => {
             const listItem = document.createElement('div');
             const img = document.createElement('img');
+            const moreInfoButton = document.createElement('button')
+            moreInfoButton.textContent = 'Lisätietoja'
             img.src = item.thumbnailURLs[0];
             img.onerror = () => {
                 img.src = '/../img/404.png';
@@ -59,7 +65,56 @@ async function fetchItems() {
 
             listItem.appendChild(img);
             listItem.appendChild(textContent);
-            if (window.location.pathname === '/sivut/julkaisut.html') {   
+            listItem.appendChild(moreInfoButton)
+            moreInfoButton.addEventListener('click', () => {
+                itemRequest(item.id)
+                    .then((response) => {
+                        console.log(response)
+                        response['createdDate'] = formatDate(response.createdDate)
+                        const preventClicksDiv = document.createElement('div')
+                        preventClicksDiv.classList.add('prevent-bg-clicks')
+                        const infoBox = generateContainer('Lisätietoja')
+                        const infoDiv = document.createElement('div')
+                        infoDiv.classList.add('more-info')
+                        const markModelRow = document.createElement('h3')
+                        const status = response.announcementType = 'sell' ? 'Myydään' : 'Ostetaan' 
+                        markModelRow.textContent = `${status}: ${response.mark} ${response.model} ${response.price} €`
+                        const photo = document.createElement('img')
+                        photo.src = response.photoURLs[0]
+                        photo.onerror = () => {
+                            photo.src = '/../img/404.png'
+                        }
+                        const descriptionRow = document.createElement('p')
+                        descriptionRow.textContent = response.description
+                        descriptionRow.style.textAlign = 'initial'
+                        infoDiv.appendChild(markModelRow)
+                        infoDiv.appendChild(photo)
+                        infoDiv.appendChild(descriptionRow)
+                        infoBox.bodyDiv.appendChild(infoDiv)
+                        const filterList = {
+                            mark: 'Merkki',
+                            model: 'Malli',
+                            mileage: 'Kilometrit',
+                            year: 'Vuosimalli',
+                            fuelType: 'Käyttövoima',
+                            gearBoxType: 'Vaihteisto',
+                            createdDate: 'Ilmoitus jätetty',
+                        }
+
+                        const data = getFilteredArray(response, filterList)
+                        const table = generateTable({ data, headers: ['Tiedot ajoneuvosta:', ''] })
+                        infoDiv.appendChild(table)
+                        main.prepend(preventClicksDiv)
+                        main.appendChild(infoBox.container)
+
+                        infoBox.closePromise
+                            .then(() => {
+                                main.removeChild(preventClicksDiv)
+                                main.removeChild(infoBox.container)
+                            })
+                    })
+            })
+            if (window.location.pathname === '/sivut/julkaisut.html') {
                 if (decodedToken && item.user !== decodedToken.id) {
                     const sendMessageBtn = document.createElement('button')
                     if (item.announcementType === 'sell')

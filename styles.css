@@ -369,9 +369,11 @@ p {
 }
 
 .prevent-bg-clicks {
+    left: 0px;
+    top: 0px;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: auto;
 }
 
@@ -448,6 +450,47 @@ div:has(.loading) {
     border-top: 8px solid #e21919;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
+}
+
+.more-info {
+    padding-bottom: 20px;
+}
+
+.more-info img {
+    width: 600px;
+    border: rgb(96, 96, 96) solid 3px;
+    border-radius: 5px;
+}
+
+.more-info h3 {
+    text-align: center;
+}
+
+.more-info p {
+    text-align: initial;
+}
+
+.more-info table {
+    color: #555;
+    border-collapse: collapse;
+}
+
+.more-info table td {
+    padding: 0px;
+}
+
+.listed-item button {
+    border-radius: 4px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.listed-item button:nth-of-type(1) {
+    background-color: #e21919;
+}
+
+.listed-item button:nth-of-type(2) {
+    background-color: #1aaf39;
 }
 
 @-webkit-keyframes spin {
