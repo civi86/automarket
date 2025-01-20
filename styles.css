@@ -271,6 +271,10 @@ p {
     justify-content: center;
 }
 
+.hidden {
+    display: none;
+  }
+  
 .msg-container,
 .container-box {
     z-index: 100;
@@ -283,6 +287,18 @@ p {
     border: 1px black solid;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.9);
+}
+.container-box2 {
+    z-index: 100;
+    position: absolute;
+    padding-bottom: 10px;
+    top: 25vi;
+    left: 25vi;
+    right: 25vi;
+    bottom: auto;
+    border: 1px black solid;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255);
 }
 
 .container-header {
