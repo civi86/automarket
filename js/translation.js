@@ -1,6 +1,6 @@
 const translations = {
     en: {
-        "title": "Automarket",
+        "title": "Auto-Marketti",
         "switch-language": "Switch to: English",
         "logout": "Log out",
         "findcar": "Find a new car",
@@ -39,10 +39,11 @@ const translations = {
         "desc": "Description",
         "img": "Add a picture",
         "kilometres": "Kilometres",
-        "title2": "Results that fit the search criteria"
+        "title2": "Results that fit the search criteria",
+        "managecar": "Manage your notifications"
     },
     fi: {
-        "title": "Automarket",
+        "title": "Auto-Marketti",
         "switch-language": "Vaihda kieleksi: Suomi",
         "logout": "Kirjaudu ulos",
         "findcar": "Löydä itsellesi uusi auto",
@@ -81,7 +82,8 @@ const translations = {
         "desc": "Kuvaus ajoneuvosta",
         "img": "Lisää kuva ajoneuvosta",
         "kilometres": "Kilometrit",
-        "title2": "Kriteereihin sopivat hakutulokset"
+        "title2": "Kriteereihin sopivat hakutulokset",
+        "managecar": "Hallitse omia ilmoituksia"
     }
 };
 
