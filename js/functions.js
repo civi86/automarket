@@ -61,8 +61,6 @@ const generateContainer = (containerTitle) => {
   const closePromise = new Promise((resolve, reject) => {
     closeBtn.addEventListener('click', () => {
       container.parentElement.removeChild(container);
-      const element = document.querySelector('.container-box2');
-      element.classList.add('hidden');
       resolve()
     })
   })

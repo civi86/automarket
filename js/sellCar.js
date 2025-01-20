@@ -5,12 +5,28 @@ import { newItemRequest } from './apiRequests.js'
 
 const postItemBtn = document.getElementById('postItem')
 const publishForm = document.getElementById('publish')
-if (publishForm) {
-    const formMarkSelect = document.getElementById('merkki')
-    const generatedMarkSelect = generateSelectMenu(carMarksData)
+const purchaseForm = document.getElementById('car-purchase-form')
+
+let formMarkSelect = document.getElementById('merkki')
+if (!formMarkSelect) {
+    formMarkSelect = document.getElementById('car-make')
+}
+
+const generatedMarkSelect = generateSelectMenu(carMarksData)
+
+if (window.location.pathname === '/sivut/ilmoitus.html') {
     generatedMarkSelect.setAttribute('name', 'merkki')
     generatedMarkSelect.id = 'merkki'
+}
+else {
+    generatedMarkSelect.setAttribute('name', 'car-make')
+    generatedMarkSelect.id = 'car-make'
+}
+if (publishForm) {
     publishForm.replaceChild(generatedMarkSelect, formMarkSelect)
+}
+else {
+    purchaseForm.replaceChild(generatedMarkSelect, formMarkSelect)
 }
 
 const newItemEvent = (event) => {
@@ -38,7 +54,6 @@ const newItemEvent = (event) => {
         }]
 
         const form = event.target.parentElement
-        console.log(form)
         const formDataRaw = new FormData(form)
         const data = new FormData()
         const keys = form.id === 'car-purchase-form'

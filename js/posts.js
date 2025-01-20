@@ -3,21 +3,29 @@ import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 import { itemRequest } from "./apiRequests.js";
 
-const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
-//const backEndUrl = 'http://localhost:3001/api/items'
+//const backEndUrl = 'https://automarketbackend.onrender.com/api/items'
+const backEndUrl = 'http://localhost:3001/api/items'
 
 const main = document.getElementsByTagName('main')[0]
 
-async function fetchItems() {
-    try {
-        const itemsList = document.getElementById('items-list');
+let sellItemsCurrentIndex = 0
+let buyItemsCurrentIndex = 0
 
+async function fetchItems(announcementsType, currentIndex) {
+    try {
+        let itemsList = null
+
+        if (announcementsType === 'sell')
+            itemsList = document.getElementById('items-list');
+        else if (announcementsType === 'buy') {
+            itemsList = document.getElementById('buy-items-list');
+        }
         // Add loading indicator
         const indicatorDiv = loadingIndicator()
         indicatorDiv.style.top = '60%'
         itemsList.appendChild(indicatorDiv)
-
-        const response = await fetch(backEndUrl);
+        
+        const response = await fetch(backEndUrl + `/${announcementsType}/${currentIndex}`);
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
@@ -25,24 +33,29 @@ async function fetchItems() {
             // Remove loading indicator if got response
             itemsList.removeChild(indicatorDiv)
         }
-        if (response.status === 204) {
+        if (response.status === 204 && currentIndex === 0) {
             itemsList.textContent = 'Ei yhtään ilmoitusta'
             itemsList.style.fontWeight = 'bold'
             itemsList.style.textAlign = 'center'
             itemsList.style.display = 'block'
             return []
         }
+        else if (response.status === 204 && currentIndex > 0) {
+            let button = null
+            if (announcementsType === 'sell') {
+                button = document.getElementById('more-sell-items')
+            }
+            else if (announcementsType === 'buy') {
+                button = document.getElementById('more-buy-items')
+            }
+            main.removeChild(button.parentElement)
+            notification({error:{name:'Info', message:'Ei enempää ilmoituksia'}})
+            return []
+        }
         const items = await response.json();
 
         console.log('Fetched Items:', items);
 
-        // if (items.length === 0) {
-        //     itemsList.textContent = 'Ei yhtään ilmoitusta'
-        //     itemsList.style.fontWeight = 'bold'
-        //     itemsList.style.textAlign = 'center'
-        //     itemsList.style.display = 'block'
-        //     return
-        // }
         const decodedToken = tokenDecode()
 
         items.forEach(item => {
@@ -50,20 +63,24 @@ async function fetchItems() {
             const img = document.createElement('img');
             const moreInfoButton = document.createElement('button')
             moreInfoButton.textContent = 'Lisätietoja'
-            img.src = item.thumbnailURLs[0];
-            img.onerror = () => {
-                img.src = '/../img/404.png';
-            };
+            if (announcementsType === 'sell') {
+                img.src = item.thumbnailURLs[0];
+                img.onerror = () => {
+                    img.src = '/../img/404.png';
+                };
+                img.classList.add('listed-item-img');
+                listItem.appendChild(img);
+            }
             listItem.id = `item-${item.id}`;
 
             const textContent = document.createElement('span');
             textContent.textContent = `${item.mark} ${item.model} - ${item.price} €`;
 
             listItem.classList.add('listed-item');
-            img.classList.add('listed-item-img');
+            
             textContent.classList.add('listed-item-desc')
 
-            listItem.appendChild(img);
+            
             listItem.appendChild(textContent);
             listItem.appendChild(moreInfoButton)
             moreInfoButton.addEventListener('click', () => {
@@ -77,18 +94,23 @@ async function fetchItems() {
                         const infoDiv = document.createElement('div')
                         infoDiv.classList.add('more-info')
                         const markModelRow = document.createElement('h3')
-                        const status = response.announcementType = 'sell' ? 'Myydään' : 'Ostetaan' 
+                        const status = response.announcementType === 'sell' ? 'Myydään' : 'Ostetaan' 
                         markModelRow.textContent = `${status}: ${response.mark} ${response.model} ${response.price} €`
                         const photo = document.createElement('img')
-                        photo.src = response.photoURLs[0]
-                        photo.onerror = () => {
-                            photo.src = '/../img/404.png'
+                        if (announcementsType === 'sell') {
+                            photo.src = response.photoURLs[0]
+                            photo.onerror = () => {
+                                photo.src = '/../img/404.png'
+                                photo.style.backgroundColor = 'white'
+                            }
                         }
                         const descriptionRow = document.createElement('p')
                         descriptionRow.textContent = response.description
                         descriptionRow.style.textAlign = 'initial'
                         infoDiv.appendChild(markModelRow)
-                        infoDiv.appendChild(photo)
+                        if (announcementsType === 'sell') {
+                            infoDiv.appendChild(photo)
+                        }
                         infoDiv.appendChild(descriptionRow)
                         infoBox.bodyDiv.appendChild(infoDiv)
                         const filterList = {
@@ -110,7 +132,6 @@ async function fetchItems() {
                         infoBox.closePromise
                             .then(() => {
                                 main.removeChild(preventClicksDiv)
-                                main.removeChild(infoBox.container)
                             })
                     })
             })
@@ -128,6 +149,30 @@ async function fetchItems() {
             }
             itemsList.appendChild(listItem);
         });
+        if (items) {
+            if (currentIndex === 0) {
+                const div = document.createElement('div')
+                div.classList.add('center')
+                const moreItemsBtn = document.createElement('button')
+                moreItemsBtn.classList.add('more-items')
+                moreItemsBtn.textContent = 'Lataa lisää'
+                
+                moreItemsBtn.addEventListener('click', () => {
+                    if (announcementsType === 'sell') {
+                        moreItemsBtn.id = 'more-sell-items'
+                        sellItemsCurrentIndex += 1
+                        fetchItems(announcementsType, sellItemsCurrentIndex)
+                    }
+                    else if (announcementsType === 'buy') {
+                        moreItemsBtn.id = 'more-buy-items'
+                        buyItemsCurrentIndex += 1
+                        fetchItems(announcementsType, buyItemsCurrentIndex)
+                    }
+                })
+                div.appendChild(moreItemsBtn)
+                itemsList.after(div)
+            }
+        }
         return items;
 
     } catch (error) {
@@ -135,4 +180,5 @@ async function fetchItems() {
         notification({ error: { name: 'Error', message: 'Failed to fetch items. Please try again later.' }, stayOn: true });
     }
 };
-fetchItems();
+fetchItems('sell', sellItemsCurrentIndex);
+fetchItems('buy', buyItemsCurrentIndex)

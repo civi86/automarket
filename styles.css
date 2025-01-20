@@ -204,6 +204,10 @@ h2 {
     color: #ad0000;
 }
 
+main h3 {
+    text-align: center;
+}
+
 p {
     text-align: center;
     color: #555;
@@ -479,7 +483,7 @@ div:has(.loading) {
     padding: 0px;
 }
 
-.listed-item button {
+.listed-item button, .more-items {
     border-radius: 4px;
     padding: 10px;
     font-weight: bold;
@@ -489,7 +493,7 @@ div:has(.loading) {
     background-color: #e21919;
 }
 
-.listed-item button:nth-of-type(2) {
+.listed-item button:nth-of-type(2), .more-items {
     background-color: #1aaf39;
 }
 

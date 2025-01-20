@@ -165,7 +165,10 @@
                 <input type="text" id="car-model" name="car-model" placeholder="Esim. Corolla" required>
 
                 <label for="car-model" data-lang-key="gearbox-label">Vaihteisto:</label>
-                <input type="text" id="car-gear" name="car-gear" placeholder="Esim. Manuaali/Automaatti" required>
+                <select id="car-gear" name="car-gear" required>
+                    <option value="manuaali" data-lang-key="gearbox-manual">Manuaali</option>
+                    <option value="automaatti" data-lang-key="gearbox-automatic">Automaatti</option>
+                </select>
     
                 <label for="car-year" data-lang-key="kilometres">Vuosimalli:</label>
                 <input type="number" id="car-year" name="car-year" placeholder="Esim. 2020" required>
@@ -176,8 +179,8 @@
                 <label for="car-description" data-lang-key="desc">Kuvaus:</label>
                 <textarea id="car-description" name="car-description" rows="5" placeholder="Lisätietoja autosta"></textarea>
     
-                <label for="car-image" data-lang-key="img">Kuva autosta:</label>
-                <input type="file" id="car-image" name="car-image" accept="image/*">
+                <!--<label for="car-image" data-lang-key="img">Kuva autosta:</label>
+                 <input type="file" id="car-image" name="car-image" accept="image/*"> -->
     
                 <button type="submit" id="postItem" class="buttons" data-lang-key="submit-button">Lähetä ilmoitus</button>
             </form>
