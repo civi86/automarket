@@ -1,4 +1,5 @@
 import { sendMessageRequest } from './apiRequests.js'
+import { notification } from './notification.js'
 
 const tokenDecode = () => {
   const tokenFromLocalStorage = localStorage.getItem('token')
@@ -105,6 +106,11 @@ const confirmationBox = (message) => {
 }
 
 const generateMessageBox = ({ title, recipientUserId, announcementId, itemDescription, topicId = null, main }) => {
+  const preventBgClicks = document.createElement('div')
+  preventBgClicks.classList.add('prevent-bg-clicks')
+
+  main.appendChild(preventBgClicks)
+
   const container = generateContainer(title, itemDescription)
 
   const container2 = document.createElement('div');
@@ -138,14 +144,13 @@ const generateMessageBox = ({ title, recipientUserId, announcementId, itemDescri
       sendMessageRequest({ recipientUserId, message, announcementId, topicId })
         .then(() => {
           const main = document.getElementsByTagName('main')[0]
-          const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
           main.removeChild(preventBgClicks)
           main.removeChild(messageContainer)
+          notification({error:{name: 'Info', message:'Viesti lähetetty onnistuneesti'}})
         })
     })
     .catch(() => {
       const main = document.getElementsByTagName('main')[0]
-      const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
       main.removeChild(preventBgClicks)
       main.removeChild(messageContainer)
     })
@@ -169,7 +174,6 @@ const generateMessageBox = ({ title, recipientUserId, announcementId, itemDescri
   container.closePromise
     .then(() => {
       const main = document.getElementsByTagName('main')[0]
-      const preventBgClicks = document.getElementsByClassName('prevent-bg-clicks')[0]
       main.removeChild(preventBgClicks)
     })
 

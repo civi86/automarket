@@ -50,7 +50,7 @@ const deleteUserEvent = async (event, userId) => {
           if (response) {
             table.deleteRow(rowElement.rowIndex)
             container.removeChild(div)
-            notification({ name: 'Info', message: 'Käyttäjä poistettu onnistuneesti', doWeRedirectLater: false })
+            notification({ error: { name: 'Info', message: 'Käyttäjä poistettu onnistuneesti' }, doWeRedirectLater: false })
           }
         })
     })
@@ -70,7 +70,7 @@ const deleteItemEvent = async (event, itemId) => {
           if (response) {
             table.deleteRow(rowElement.rowIndex)
             container.removeChild(div)
-            notification({ name: 'Info', message: 'Ilmoitus poistettu onnistuneesti', doWeRedirectLater: false })
+            notification({ error: { name: 'Info', message: 'Ilmoitus poistettu onnistuneesti' }, doWeRedirectLater: false })
           }
         })
     })
@@ -147,9 +147,14 @@ const showUsersListEvent = async (event) => {
   body.prepend(container)
 
   const users = await usersListRequest()
-  if (users) {
+  if (users.status !== 204) {
     generateTable(table, users, { id: 'userId', username: 'Username', role: 'Role', registrationDate: 'Registration date', delete: 'Delete' }, deleteUserEvent)
     innerContainer.appendChild(table)
+    innerContainer.removeChild(indicatorDiv)
+  }
+  else {
+    const p = document.createElement('p')
+    p.textContent = 'No users found'
     innerContainer.removeChild(indicatorDiv)
   }
 }
@@ -168,7 +173,7 @@ const showAnnouncementsListEvent = async (event) => {
   body.prepend(container)
 
   const items = await itemsListRequest()
-  if (items) {
+  if (items.status !== 204) {
     generateTable(
       table,
       items,
@@ -188,6 +193,12 @@ const showAnnouncementsListEvent = async (event) => {
       deleteItemEvent
     )
     innerContainer.appendChild(table)
+    innerContainer.removeChild(indicatorDiv)
+  }
+  else {
+    const p = document.createElement('p')
+    p.textContent = 'No announcements'
+    innerContainer.appendChild(p)
     innerContainer.removeChild(indicatorDiv)
   }
 }

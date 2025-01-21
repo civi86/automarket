@@ -50,15 +50,21 @@ const generateTopicsList = (data) => {
     const countCell = tableRow.insertCell()
     countCell.style.textAlign = 'right'
     const btnCell = tableRow.insertCell()
-
-    senderCell.textContent = topic.senderUser.username
-    recipientCell.textContent = topic.recipientUser.username
+    
+    senderCell.textContent = topic.senderUser === null ? 'Käyttäjä poistettu' : topic.senderUser.username
+    recipientCell.textContent = topic.recipientUser === null ? 'Käyttäjä poistettu' : topic.recipientUser.username
     const announcementTypes = { sell: 'Myynti', buy: 'Osto' }
-    typeCell.textContent = announcementTypes[topic.announcement.announcementType]
-    const mileage = topic.announcement.mileage === undefined
-      ? ''
-      : `${topic.announcement.mileage} km`
-    titleCell.textContent = `${topic.announcement.mark} ${topic.announcement.model} ${mileage} ${topic.announcement.price} €`
+    if (topic.announcement === null) {
+      titleCell.textContent = 'Ilmoitus on poistettu järjestelmästä'
+    }
+    else {
+      typeCell.textContent = announcementTypes[topic.announcement.announcementType]
+      const mileage = topic.announcement.mileage === undefined
+        ? ''
+        : `${topic.announcement.mileage} km`
+      titleCell.textContent = `${topic.announcement.mark} ${topic.announcement.model} ${mileage} ${topic.announcement.price} €`
+    }
+    
     const date = new Date(topic.sendDate)
     dateCell.textContent = `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
     countCell.textContent = topic.messages.length
