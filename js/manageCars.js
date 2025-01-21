@@ -57,7 +57,7 @@ const updateAnnouncements = () => {
             containerDiv.textContent = 'Ei luotuja ilmoituksia'
           }
           else {
-            const table = generateTable(data, ['Tyyppi', 'Otsikko', 'Päiväys', 'Myynnissä/aktiivinen', 'Muokkaa', 'Poista'])
+            const table = generateTable({data, headers:['Tyyppi', 'Otsikko', 'Päiväys', 'Myynnissä/aktiivinen', 'Muokkaa', 'Poista']})
             containerDiv.appendChild(table)
           }
         })
@@ -65,7 +65,6 @@ const updateAnnouncements = () => {
 }
 
 const parseAnnouncementData = async (data) => {
-  console.log(data)
   const preventClicksDiv = document.createElement('div')
   preventClicksDiv.classList.add('prevent-bg-clicks')
   const main = document.getElementsByTagName('main')[0]
@@ -164,6 +163,7 @@ const parseAnnouncementData = async (data) => {
           deleteItemRequest(item.id)
             .then(() => {
               updateAnnouncements()
+              notification({error:{name:'Info', message:'Ilmoituksen poisto onnistui'}})
               main.removeChild(confirmBox.containerDiv)
               main.removeChild(preventClicksDiv)
             })
