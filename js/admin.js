@@ -1,6 +1,8 @@
 import { usersListRequest, deleteUserRequest, itemsListRequest, deleteItemRequest } from './apiRequests.js'
-import { tokenDecode, loadingIndicator, confirmationBox } from './functions.js'
+import { tokenDecode, loadingIndicator, confirmationBox, formatDate } from './functions.js'
 import { notification } from './notification.js'
+
+let contentIndex = 0
 
 const table = document.createElement('table')
 
@@ -13,6 +15,13 @@ innerContainer.id = 'inner-admin-container'
 const closeBtn = document.createElement('button')
 closeBtn.textContent = 'X'
 closeBtn.id = 'close-container-btn'
+
+const buttonDiv = document.createElement('div')
+const moreBtn = document.createElement('button')
+moreBtn.textContent = "Load more"
+
+buttonDiv.appendChild(moreBtn)
+
 
 const showUsersListBtn = document.getElementById('show-users-list')
 const showAnnouncementsListBtn = document.getElementById('show-announcements-list')
@@ -96,7 +105,14 @@ const generateTableHeader = (table, data, filterList) => {
 }
 
 const generateTableBody = (table, data, filterList, eventCallBack) => {
-  const tableBody = table.createTBody()
+  let tableBody = null
+  if (contentIndex === 0) {
+    tableBody = table.createTBody()
+  }
+  else {
+    tableBody = table.getElementsByTagName('tbody')[0]
+  }
+
   data.forEach(row => {
     const tableRow = tableBody.insertRow()
     Object.keys(filterList).forEach(key => {
@@ -109,6 +125,9 @@ const generateTableBody = (table, data, filterList, eventCallBack) => {
         const cell = tableRow.insertCell()
         cell.appendChild(image)
         return
+      }
+      if (key === 'createdDate' || key === 'registrationDate') {
+        row[key] = formatDate(row[key])
       }
       if (key === 'delete') {
         const button = document.createElement('button')
@@ -127,53 +146,48 @@ const generateTableBody = (table, data, filterList, eventCallBack) => {
 }
 
 const generateTable = (table, rawData, filterList, eventCallBack) => {
-  table.innerHTML = ''
   const filteredData = filterData(rawData, filterList)
-  generateTableHeader(table, filteredData, filterList)
+  if (contentIndex === 0) {
+    table.innerHTML = ''
+    generateTableHeader(table, filteredData, filterList)
+  }
   generateTableBody(table, filteredData, filterList, eventCallBack)
 }
 
-const showUsersListEvent = async (event) => {
-  event.stopPropagation()
-  container.innerHTML = ''
+const getUsersList = async () => {
+  moreBtn.id = 'more-users'
   const indicatorDiv = loadingIndicator()
   innerContainer.appendChild(indicatorDiv)
-
-  container.appendChild(innerContainer)
-  const div = headerDiv('Käyttäjälista')
-  div.appendChild(closeBtn)
-  container.prepend(div)
-
-  body.prepend(container)
-
-  const users = await usersListRequest()
+  const users = await usersListRequest(contentIndex)
   if (users && users.status !== 204) {
     generateTable(table, users, { id: 'userId', username: 'Username', role: 'Role', registrationDate: 'Registration date', delete: 'Delete' }, deleteUserEvent)
-    innerContainer.appendChild(table)
-    innerContainer.removeChild(indicatorDiv)
+    innerContainer.prepend(table)
+  }
+  if (contentIndex === 0 && users && users.status === 204) {
+    innerContainer.innerHTML = ''
+    const p = document.createElement('p')
+    p.textContent = 'No announcements'
+    innerContainer.appendChild(p)
   }
   else {
-    const p = document.createElement('p')
-    p.textContent = 'No users found'
     innerContainer.removeChild(indicatorDiv)
+  }
+  if (contentIndex === 0 && users && users.length === 10) {
+    innerContainer.appendChild(buttonDiv)
+  }
+  else if (contentIndex > 0 && users && users.length < 10) {
+    innerContainer.removeChild(buttonDiv)
   }
 }
 
-const showAnnouncementsListEvent = async (event) => {
-  event.stopPropagation()
-  container.innerHTML = ''
+const getAnnouncementsList = async () => {
+  moreBtn.id = 'more-announcements'
   const indicatorDiv = loadingIndicator()
   innerContainer.appendChild(indicatorDiv)
-
-  container.appendChild(innerContainer)
-  const div = headerDiv('Ilmoituslista')
-  div.appendChild(closeBtn)
-  container.prepend(div)
-
-  body.prepend(container)
-
-  const items = await itemsListRequest()
-  if (items.status !== 204) {
+  const response = await itemsListRequest(contentIndex)
+  console.log(response)
+  if (response && response.status !== 204) {
+    const items = response.map(item => ({ ...item, user: item.user.username, userId: item.user.id }))
     generateTable(
       table,
       items,
@@ -184,25 +198,82 @@ const showAnnouncementsListEvent = async (event) => {
         model: 'Model',
         fuelType: 'Fuel type',
         mileage: 'Mileage',
+        year: 'Year',
         price: 'Price',
-        onActive: 'Is it for sale?',
-        createdDate: 'Announcement creation date',
-        user: 'User',
-        delete: 'Delete'
+        onActive: 'Active/on sale',
+        createdDate: 'Date',
+        announcementType: "Type",
+        user: 'Username',
+        userId: 'UserId',
+        delete: 'Delete',
       },
       deleteItemEvent
     )
-    innerContainer.appendChild(table)
-    innerContainer.removeChild(indicatorDiv)
+    innerContainer.prepend(table)
+    //innerContainer.removeChild(indicatorDiv)
   }
-  else {
+  if (contentIndex === 0 && response && response.status === 204) {
+    innerContainer.innerHTML = ''
     const p = document.createElement('p')
     p.textContent = 'No announcements'
     innerContainer.appendChild(p)
+  }
+  else {
     innerContainer.removeChild(indicatorDiv)
+  }
+  if (contentIndex === 0 && response && response.length === 10) {
+    innerContainer.appendChild(buttonDiv)
+  }
+  if (contentIndex > 0 && response && response.length < 10) {
+    innerContainer.removeChild(buttonDiv)
   }
 }
 
-closeBtn.addEventListener('click', () => { body.removeChild(container) })
+const showUsersListEvent = async (event) => {
+  contentIndex = 0
+  container.innerHTML = ''
+
+  container.appendChild(innerContainer)
+  const div = headerDiv('Käyttäjälista')
+  div.appendChild(closeBtn)
+  container.prepend(div)
+
+  body.prepend(container)
+
+  getUsersList()
+}
+
+const showAnnouncementsListEvent = async (event) => {
+  contentIndex = 0
+  container.innerHTML = ''
+
+  container.appendChild(innerContainer)
+  const div = headerDiv('Ilmoituslista')
+  div.appendChild(closeBtn)
+  container.prepend(div)
+
+  body.prepend(container)
+
+  getAnnouncementsList()
+
+}
+
+moreBtn.addEventListener('click', (event) => {
+  contentIndex += 1
+  if (event.target.id === 'more-users') {
+    getUsersList()
+  }
+  else if (event.target.id === 'more-announcements') {
+    getAnnouncementsList()
+  }
+
+})
+
+closeBtn.addEventListener('click', () => {
+  contentIndex = 0
+  innerContainer.innerHTML = ''
+  body.removeChild(container)
+})
+
 showUsersListBtn.addEventListener('click', (event) => { showUsersListEvent(event) })
 showAnnouncementsListBtn.addEventListener('click', (event) => { showAnnouncementsListEvent(event) })

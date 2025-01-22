@@ -73,14 +73,13 @@ const loginRequest = async (data) => {
     return result
 }
 
-const usersListRequest = async () => {
+const usersListRequest = async (index) => {
     const token = localStorage.getItem('token')
     if (token && tokenDecode().role === 'admin') {
-        const request = new Request(backEndUrl + '/users', {
+        const request = new Request(backEndUrl + `/users/${index}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
             },
         })
         const result = await fetchRequest(request)
@@ -130,9 +129,13 @@ const deleteItemRequest = async (itemId) => {
     return result
 }
 
-const itemsListRequest = async () => {
-    const request = new Request(backEndUrl + '/items', {
+const itemsListRequest = async (index) => {
+    const token = localStorage.getItem('token')
+    const request = new Request(backEndUrl + `/items/${index}`, {
         method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
     })
     const result = await fetchRequest(request)
     return result

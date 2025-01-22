@@ -41,6 +41,9 @@ const formatDate = (rawDate) => {
 }
 
 const formatNumber = (value) => {
+  if (!value) {
+    return null
+  }
   return value.toLocaleString("fi-FI")
 }
 

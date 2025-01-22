@@ -122,8 +122,10 @@ async function fetchItems(announcementsType, currentIndex) {
                             gearBoxType: 'Vaihteisto',
                             createdDate: 'Ilmoitus jätetty',
                         }
-                        response.mileage = formatNumber(response.mileage)
-                        response.mileage += ' km'
+                        if (response.mileage) {
+                            response.mileage = formatNumber(response.mileage)
+                            response.mileage += ' km'
+                        }
                         const data = getFilteredArray(response, filterList)
                         const table = generateTable({ data, headers: ['Tiedot ajoneuvosta:', ''] })
                         infoDiv.appendChild(table)
