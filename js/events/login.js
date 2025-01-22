@@ -10,7 +10,7 @@ const loginEvent = (event) => {
   try {
     event.preventDefault()
     const indicatorDiv = loadingIndicator()
-    indicatorDiv.style.left = '91.5%'
+    indicatorDiv.style.left = '92%'
     indicatorDiv.style.top = 'unset'
     indicatorDiv.style.width = '20px'
     indicatorDiv.style.height = '20px'

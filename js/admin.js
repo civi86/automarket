@@ -147,7 +147,7 @@ const showUsersListEvent = async (event) => {
   body.prepend(container)
 
   const users = await usersListRequest()
-  if (users.status !== 204) {
+  if (users && users.status !== 204) {
     generateTable(table, users, { id: 'userId', username: 'Username', role: 'Role', registrationDate: 'Registration date', delete: 'Delete' }, deleteUserEvent)
     innerContainer.appendChild(table)
     innerContainer.removeChild(indicatorDiv)

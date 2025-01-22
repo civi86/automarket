@@ -22,7 +22,7 @@ async function fetchItems(announcementsType, currentIndex) {
         }
         // Add loading indicator
         const indicatorDiv = loadingIndicator()
-        indicatorDiv.style.top = '60%'
+        indicatorDiv.style.position = 'unset'
         itemsList.appendChild(indicatorDiv)
         
         const response = await fetch(backEndUrl + `/${announcementsType}/${currentIndex}`);
@@ -86,7 +86,7 @@ async function fetchItems(announcementsType, currentIndex) {
             moreInfoButton.addEventListener('click', () => {
                 itemRequest(item.id)
                     .then((response) => {
-                        console.log(response)
+                        //console.log(response)
                         response['createdDate'] = formatDate(response.createdDate)
                         const preventClicksDiv = document.createElement('div')
                         preventClicksDiv.classList.add('prevent-bg-clicks')
