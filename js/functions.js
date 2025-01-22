@@ -40,8 +40,11 @@ const formatDate = (rawDate) => {
   return `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
 }
 
-const generateContainer = (containerTitle) => {
+const formatNumber = (value) => {
+  return value.toLocaleString("fi-FI")
+}
 
+const generateContainer = (containerTitle) => {
   const container = document.createElement('div')
   container.classList.add('container-box')
 
@@ -198,6 +201,7 @@ const generateSelectMenu = (array, setSelectedValue) => {
 
 const generateTableHeader = (headerArray) => {
   const header = document.createElement('thead')
+  header.style.fontWeight = 'bold'
   const row = header.insertRow()
   for (const item of headerArray) {
     const cell = row.insertCell()
@@ -248,4 +252,5 @@ export {
   getFilteredMap,
   getFilteredArray,
   formatDate,
+  formatNumber,
 }

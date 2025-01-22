@@ -1,5 +1,5 @@
 import { deleteItemRequest, itemActiveToggleRequest, itemEditRequest, itemRequest, userRequest } from '../js/apiRequests.js'
-import { generateContainer, isDomObject, getFilteredMap, generateSelectMenu, confirmationBox, generateTable } from './functions.js'
+import { generateContainer, isDomObject, getFilteredMap, generateSelectMenu, confirmationBox, generateTable, formatNumber } from './functions.js'
 import { carMarksData } from '../data/carMarks.js'
 import { notification } from './notification.js'
 
@@ -73,9 +73,9 @@ const parseAnnouncementData = async (data) => {
     const type = announcementTypes[item.announcementType]
     const mileage = item.mileage === undefined
       ? ''
-      : `${item.mileage} km`
+      : `${formatNumber(item.mileage)} km`
 
-    const title = `${item.mark} ${item.model} ${mileage} ${item.price} €`
+    const title = `${item.mark} ${item.model} ${mileage} ${formatNumber(item.price)} €`
     const date = new Date(item.createdDate)
     const dateString = `${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}`
     const saleToggleBtn = document.createElement('button')

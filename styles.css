@@ -483,6 +483,10 @@ div:has(.loading) {
     padding: 0px;
 }
 
+.more-info table td:nth-child(1) {
+    font-weight: bold;
+}
+
 .listed-item button, .more-items {
     border-radius: 4px;
     padding: 10px;
@@ -495,6 +499,7 @@ div:has(.loading) {
 
 .listed-item button:nth-of-type(2), .more-items {
     background-color: #1aaf39;
+    margin-top: 2px;
 }
 
 @-webkit-keyframes spin {

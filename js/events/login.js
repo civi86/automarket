@@ -20,10 +20,11 @@ const loginEvent = (event) => {
     const username = usernameElement.value
     const password = passwordElement.value
     if (username === '') {
+      loginSubmitBtn.parentElement.removeChild(indicatorDiv)
       throw new Error('Käyttäjänimi puuttuu')
     }
     if (password === '') {
-
+      loginSubmitBtn.parentElement.removeChild(indicatorDiv)
       throw new Error('Salasana puuttuu')
     }
     loginRequest({ username, password })

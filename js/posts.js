@@ -1,4 +1,4 @@
-import { formatDate, generateContainer, generateTable, getFilteredArray, getFilteredMap, loadingIndicator, tokenDecode } from "./functions.js";
+import { formatDate, formatNumber, generateContainer, generateTable, getFilteredArray, getFilteredMap, loadingIndicator, tokenDecode } from "./functions.js";
 import { notification } from "./notification.js";
 import { openSendMessageEvent } from './events/message.js';
 import { itemRequest } from "./apiRequests.js";
@@ -74,7 +74,7 @@ async function fetchItems(announcementsType, currentIndex) {
             listItem.id = `item-${item.id}`;
 
             const textContent = document.createElement('span');
-            textContent.textContent = `${item.mark} ${item.model} - ${item.price} €`;
+            textContent.textContent = `${item.mark} ${item.model} - ${formatNumber(item.price)} €`;
 
             listItem.classList.add('listed-item');
             
@@ -95,7 +95,7 @@ async function fetchItems(announcementsType, currentIndex) {
                         infoDiv.classList.add('more-info')
                         const markModelRow = document.createElement('h3')
                         const status = response.announcementType === 'sell' ? 'Myydään' : 'Ostetaan' 
-                        markModelRow.textContent = `${status}: ${response.mark} ${response.model} ${response.price} €`
+                        markModelRow.textContent = `${status}: ${response.mark} ${response.model} ${formatNumber(response.price)} €`
                         const photo = document.createElement('img')
                         if (announcementsType === 'sell') {
                             photo.src = response.photoURLs[0]
@@ -122,7 +122,8 @@ async function fetchItems(announcementsType, currentIndex) {
                             gearBoxType: 'Vaihteisto',
                             createdDate: 'Ilmoitus jätetty',
                         }
-
+                        response.mileage = formatNumber(response.mileage)
+                        response.mileage += ' km'
                         const data = getFilteredArray(response, filterList)
                         const table = generateTable({ data, headers: ['Tiedot ajoneuvosta:', ''] })
                         infoDiv.appendChild(table)
