@@ -131,7 +131,7 @@ const deleteItemRequest = async (itemId) => {
 
 const itemsListRequest = async (index) => {
     const token = localStorage.getItem('token')
-    const request = new Request(backEndUrl + `/items/${index}`, {
+    const request = new Request(backEndUrl + `/items/admin/${index}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
