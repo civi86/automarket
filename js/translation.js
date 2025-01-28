@@ -42,7 +42,11 @@ const translations = {
         "title2": "Results that fit the search criteria",
         "managecar": "Manage your notifications",
         "buycar": "Make a buy listing",
-        "budget": "Budget (€)"
+        "budget": "Budget (€)",
+        "forsale": "For sale",
+        "forbuy": "Buying",
+        "moreinfo": "More info",
+        "moreload": "Load more"
     },
     fi: {
         "title": "Auto-Marketti",
@@ -87,7 +91,11 @@ const translations = {
         "title2": "Kriteereihin sopivat hakutulokset",
         "managecar": "Hallitse omia ilmoituksia",
         "buycar": "Tee ostoilmoitus",
-        "budget": "Budjetti (€)"
+        "budget": "Budjetti (€)",
+        "forsale": "Myydään",
+        "forbuy": "Ostetaan",
+        "moreinfo": "Lisätietoja",
+        "moreload": "Lataa lisää"
     }
 };
 

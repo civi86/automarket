@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         populateDropdowns(carData);
         searchButton.addEventListener('click', handleSearch);
     } catch (error) {
-        //console.error('Dropdown initialization failed:', error);
-        //notification({ error });
+        console.error('Dropdown initialization failed:', error);
+        notification({ error });
     }
 });
 

@@ -4,8 +4,8 @@ import { notification } from '../notification.js'
 const registerSubmitBtn = document.getElementById('reg-registration')
 const regUsername = document.getElementById('reg-username')
 const regPassword = document.getElementById('reg-password')
-const regEmail = document.getElementById('reg-email')
-const regPhoneNumber = document.getElementById('reg-number')
+//const regEmail = document.getElementById('reg-email')
+//const regPhoneNumber = document.getElementById('reg-number')
 
 const registrationEvent = (event) => {
   try {

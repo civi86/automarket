@@ -63,6 +63,7 @@ async function fetchItems(announcementsType, currentIndex) {
             const img = document.createElement('img');
             const moreInfoButton = document.createElement('button')
             moreInfoButton.textContent = 'Lisätietoja'
+            moreInfoButton.setAttribute('data-lang-key', 'moreinfo');
             if (announcementsType === 'sell') {
                 img.src = item.thumbnailURLs[0];
                 img.onerror = () => {
@@ -159,6 +160,7 @@ async function fetchItems(announcementsType, currentIndex) {
                 const moreItemsBtn = document.createElement('button')
                 moreItemsBtn.classList.add('more-items')
                 moreItemsBtn.textContent = 'Lataa lisää'
+                moreItemsBtn.setAttribute('data-lang-key', 'moreload');
                 
                 moreItemsBtn.addEventListener('click', () => {
                     if (announcementsType === 'sell') {
