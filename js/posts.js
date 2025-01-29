@@ -48,7 +48,9 @@ async function fetchItems(announcementsType, currentIndex) {
             else if (announcementsType === 'buy') {
                 button = document.getElementById('more-buy-items')
             }
-            main.removeChild(button.parentElement)
+            if (button) {
+                main.removeChild(button.parentElement)
+            }
             notification({error:{name:'Info', message:'Ei enempää ilmoituksia'}})
             return []
         }
@@ -155,7 +157,7 @@ async function fetchItems(announcementsType, currentIndex) {
             itemsList.appendChild(listItem);
         });
         if (items) {
-            if (currentIndex === 0) {
+            if (currentIndex === 0 && items.length > 10) {
                 const div = document.createElement('div')
                 div.classList.add('center')
                 const moreItemsBtn = document.createElement('button')
