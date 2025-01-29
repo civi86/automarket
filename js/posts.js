@@ -157,7 +157,8 @@ async function fetchItems(announcementsType, currentIndex) {
             itemsList.appendChild(listItem);
         });
         if (items) {
-            if (currentIndex === 0 && items.length > 10) {
+            
+            if (currentIndex === 0 && items.length === 10) {
                 const div = document.createElement('div')
                 div.classList.add('center')
                 const moreItemsBtn = document.createElement('button')
@@ -179,6 +180,17 @@ async function fetchItems(announcementsType, currentIndex) {
                 })
                 div.appendChild(moreItemsBtn)
                 itemsList.after(div)
+            }
+            else if (currentIndex !== 0 && items.length < 10) {
+                let moreItemsBtn = null
+                if (announcementsType === 'sell') {
+                    moreItemsBtn = document.getElementById('more-sell-items')
+                }
+                else if (announcementsType === 'buy') {
+                    moreItemsBtn = document.getElementById('more-buy-items')
+                }
+                const div = moreItemsBtn.parentElement
+                div.removeChild(moreItemsBtn)
             }
         }
         return items;
