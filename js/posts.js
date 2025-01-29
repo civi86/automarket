@@ -132,6 +132,7 @@ async function fetchItems(announcementsType, currentIndex) {
                         infoDiv.appendChild(table)
                         main.prepend(preventClicksDiv)
                         main.appendChild(infoBox.container)
+                        window.scrollTo(0,0)
 
                         infoBox.closePromise
                             .then(() => {
