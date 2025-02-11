@@ -1,6 +1,6 @@
 const translations = {
     en: {
-        "title": "Auto-Marketti",
+        "title": "Automarket",
         "switch-language": "Switch to: English",
         "logout": "Log out",
         "findcar": "Find a new car",
@@ -32,24 +32,23 @@ const translations = {
         "header": "List your car for sale",
         "p": "Fill your car information below",
         "ourcontact": "Our contact information",
-        "ourcontact2": "For problems with site contact: tuki@auto-marketti.fi",
-        "ourcontact3": "You can also call us monday-friday 8-16 number: 045 678 91011",
+        "ourcontact2": "For problems with site contact: tuki@auto-marketti.fi or use our contact form below",
+        "ourcontact3": "You can also call us Monday-Friday 8-16 number: 045 678 91011",
         "messagesget": "Get messages",
+        "managecar": "Manage your listings",
         "hinta": "Price",
         "desc": "Description",
         "img": "Add a picture",
-        "kilometres": "Kilometres:",
+        "kilometres": "Kilometres",
         "title2": "Results that fit the search criteria",
-        "managecar": "Manage your notifications",
-        "buycar": "Make a buy listing",
-        "budget": "Budget (€)",
-        "forsale": "For sale",
-        "forbuy": "Buying",
-        "moreinfo": "More info",
-        "moreload": "Load more"
+        "name": "Name",
+        "email": "Email",
+        "number": "Phone",
+        "message": "Message",
+        "submit": "Submit",
     },
     fi: {
-        "title": "Auto-Marketti",
+        "title": "Automarket",
         "switch-language": "Vaihda kieleksi: Suomi",
         "logout": "Kirjaudu ulos",
         "findcar": "Löydä itsellesi uusi auto",
@@ -80,8 +79,9 @@ const translations = {
         "submit-button": "Lähetä",
         "header": "Listaa ajoneuvosi myytäväksi",
         "p": "Syötä ajoneuvosi tiedot alla olevaan lomakkeeseen",
+        "managecar": "Hallinnoi omia ilmoituksia",
         "ourcontact": "Yhteystietomme",
-        "ourcontact2": "Ongelmatilanteissa ota yhteyttä: tuki@auto-marketti.fi",
+        "ourcontact2": "Ongelmatilanteissa ota yhteyttä: tuki@auto-marketti.fi tai alla olevan lomakkeen kautta",
         "ourcontact3": "Palvelemme myös arkisin puhelimitse klo 8-16 numerossa 045 678 91011",
         "messagesget": "Hae viestit",
         "hinta": "Hinta",
@@ -89,21 +89,66 @@ const translations = {
         "img": "Lisää kuva ajoneuvosta",
         "kilometres": "Kilometrit",
         "title2": "Kriteereihin sopivat hakutulokset",
-        "managecar": "Hallitse omia ilmoituksia",
-        "buycar": "Tee ostoilmoitus",
-        "budget": "Budjetti (€)",
-        "forsale": "Myydään",
-        "forbuy": "Ostetaan",
-        "moreinfo": "Lisätietoja",
-        "moreload": "Lataa lisää"
-    }
+        "name": "Nimi",
+        "email": "Sähköposti",
+        "number": "Puhelin",
+        "message": "Viesti",
+        "submit": "Lähetä",
+    },
+    sv: {
+        "title": "Automarket",
+        "switch-language": "Byt språk till: Svenska",
+        "logout": "Logga ut",
+        "findcar": "Hitta din nya bil",
+        "listcar": "Lista din bil till försäljning",
+        "searchcar": "Bilsökning",
+        "messages": "Meddelanden",
+        "contact": "Kontakt",
+        "search-title": "Sök bil enligt dina kriterier",
+        "search-desc": "Fyll i fordonets information i formuläret nedan.",
+        "car-brand-label": "Bilens märke:",
+        "car-brand-placeholder": "Välj märke",
+        "car-model-label": "Bilens modell:",
+        "car-model-placeholder": "Välj modell",
+        "fuel-label": "Drivmedel:",
+        "fuel-placeholder": "Välj drivmedel",
+        "fuel-petrol": "Bensin",
+        "fuel-diesel": "Diesel",
+        "fuel-hybrid": "Hybrid",
+        "fuel-electric": "El",
+        "gearbox-label": "Växellåda:",
+        "gearbox-placeholder": "Välj växellåda",
+        "gearbox-manual": "Manuell",
+        "gearbox-automatic": "Automat",
+        "max-km-label": "Max kilometer:",
+        "max-km-placeholder": "Ange max kilometer",
+        "max-price-label": "Maxpris:",
+        "managecar": "Hantera dina aviseringar",
+        "max-price-placeholder": "Ange maxpris",
+        "submit-button": "Skicka",
+        "header": "Lista din bil till försäljning",
+        "p": "Fyll i bilens information i formuläret nedan",
+        "ourcontact": "Våra kontaktuppgifter",
+        "ourcontact2": "Vid problem, kontakta oss: support@auto-marknad.se or med våra kontaktformulär",
+        "ourcontact3": "Vi är även tillgängliga per telefon vardagar kl. 8-16 på nummer 045 678 91011",
+        "messagesget": "Hämta meddelanden",
+        "hinta": "Pris",
+        "desc": "Beskrivning av bilen",
+        "img": "Lägg till en bild på bilen",
+        "kilometres": "Kilometer",
+        "title2": "Sökresultat som matchar dina kriterier",
+        "name": "Namn",
+        "email": "E-post",
+        "number": "Telefon",
+        "message": "Meddelande",
+        "submit": "Skicka",
+    }    
 };
 
-let currentLanguage = "fi";
+let currentLanguage = localStorage.getItem("language") || "fi";
 
 const updateLanguage = (language) => {
-    const elements = document.querySelectorAll("[data-lang-key]");
-    elements.forEach((element) => {
+    document.querySelectorAll("[data-lang-key]").forEach((element) => {
         const key = element.getAttribute("data-lang-key");
         if (translations[language][key]) {
             element.textContent = translations[language][key];
@@ -112,6 +157,8 @@ const updateLanguage = (language) => {
 
     const toggleButton = document.getElementById("language-toggle");
     toggleButton.textContent = language === "fi"
+        ? "Byt språk till: Svenska"
+        : language === "sv"
         ? "Switch to: English"
         : "Vaihda kieleksi: Suomi";
 };
@@ -119,15 +166,11 @@ const updateLanguage = (language) => {
 document.addEventListener("DOMContentLoaded", () => {
     const toggleButton = document.getElementById("language-toggle");
 
-    const savedLanguage = localStorage.getItem("language") || "fi";
-    currentLanguage = savedLanguage;
     updateLanguage(currentLanguage);
 
     toggleButton.addEventListener("click", () => {
-        currentLanguage = currentLanguage === "fi" ? "en" : "fi";
+        currentLanguage = currentLanguage === "fi" ? "sv" : currentLanguage === "sv" ? "en" : "fi";
         localStorage.setItem("language", currentLanguage);
         updateLanguage(currentLanguage);
     });
-
-    updateLanguage(currentLanguage);
 });
