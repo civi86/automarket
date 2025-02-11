@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/styles.css" rel="stylesheet">
     <title>Automarket</title>
+    <style>
+        
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        #contact-form label {
+            margin-top: 10px;
+        }
+        #contact-form input, 
+        #contact-form textarea {
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #contact-form button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #contact-form button:hover {
+            background-color: #0056b3;
+        }
+        #error-message {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,33 +54,71 @@
     </header>
     <div class="container">
         <nav>
-            <h3 data-lang-key="title">Auto-Marketti</h3>
+            <h3>Auto-Marketti</h3>
             <ul>
                 <li><a href="/sivut/julkaisut.html" data-lang-key="findcar">Löydä itsellesi uusi auto</a></li>
                 <li><a href="/sivut/ilmoitus.html" data-lang-key="listcar">Listaa autosi myytäväksi</a></li>
-                <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
-                <li><a href="/sivut/osto.html" data-lang-key="buycar">Tee ostoilmoitus</a></li>
                 <li><a href="/sivut/hallinnoi.html" data-lang-key="managecar">Hallitse omia ilmoituksia</a></li>
+                <li><a href="/sivut/haku.html" data-lang-key="searchcar">Autohaku</a></li>
                 <li><a href="/sivut/viestit.html" data-lang-key="messages">Viestit</a></li>
-                <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteystiedot</a></li>
+                <li><a href="/sivut/yhteystiedot.html" data-lang-key="contact">Yhteydenotto</a></li>
             </ul>
         </nav>
         <main>
             <h2 data-lang-key="ourcontact">Yhteystietomme</h2>
-            <p>‎</p>
-            <p>‎</p>
-            <p>‎</p>
-            <p>‎</p>
-            <p>‎</p>
-            <p data-lang-key="ourcontact2"> Ongelmatilanteissa ota yhteyttä: tuki@auto-marketti.fi </p>
+            <p data-lang-key="ourcontact2"> Ongelmatilanteissa ota yhteyttä: tuki@auto-marketti.fi tai alla olevan lomakkeen kautta </p>
             <p data-lang-key="ourcontact3">Palvelemme myös arkisin puhelimitse klo 8-16 numerossa 045 678 91011</p>
+            
+            <form id="contact-form">
+                <label for="name" data-lang-key="name">Nimi *</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email" data-lang-key="email">Sähköposti *</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="phone" data-lang-key="number">Puhelinnumero *</label>
+                <input type="tel" id="phone" name="phone" required>
+                
+                <label for="message" data-lang-key="message">Viesti *</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit" data-lang-key="submit">Lähetä</button>
+            </form>
+            <p id="error-message" style="color: red;"></p>
         </main>
     </div>
     <footer>
         <p>&copy; 2024 Auto-Marketti Oy. All rights reserved.</p>
     </footer>
-    <script type="module" src="../js/loggedUser.js"></script>
-    <script type="module" src="../js/events/autologout.js"></script>
     <script type="module" src="../js/translation.js"></script>
+    <script>
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let message = document.getElementById("message").value.trim();
+            let errorMessage = document.getElementById("error-message");
+            errorMessage.textContent = "";
+
+            if (!name || !email || !phone || !message) {
+                errorMessage.textContent = "Looks like you didn't fill everything.";
+                return;
+            }
+
+            if (!email.includes("@")) {
+                errorMessage.textContent = "Looks like your email isn't quite correct.";
+                return;
+            }
+
+            if (!/^[0-9]+$/.test(phone)) {
+                errorMessage.textContent = "Your phone number doesn't usually have letters.";
+                return;
+            }
+
+            alert("Lomake lähetetty onnistuneesti ja kaikki tiedot ovat oikein!");
+            document.getElementById("contact-form").reset();
+        });
+    </script>
 </body>
 </html>
